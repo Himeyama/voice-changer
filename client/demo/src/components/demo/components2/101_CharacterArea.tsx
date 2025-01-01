@@ -13,6 +13,10 @@ import { DiffusionSVCSettingArea } from "./101-7_diffusion-svcSettingArea";
 import { Portrait } from "./101-0_Portrait";
 import { useAppRoot } from "../../../001_provider/001_AppRootProvider";
 import { WebEditionSettingArea } from "./101-8_web-editionSettingArea";
+import { useTranslation } from "react-i18next"; // 追加
+// import { Slider, Button } from "@fluentui/react";
+import { Slider, Button, Label, Card  } from "@fluentui/react-components";
+
 
 export type CharacterAreaProps = {};
 
@@ -23,6 +27,7 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
     const messageBuilderState = useMessageBuilder();
     const webEdition = appGuiSettingState.edition.indexOf("web") >= 0;
     const { beatriceJVSSpeakerId } = useGuiState();
+    const { t } = useTranslation();
     useMemo(() => {
         messageBuilderState.setMessage(__filename, "export_to_onnx", { ja: "onnx出力", en: "export to onnx" });
         messageBuilderState.setMessage(__filename, "save_default", { ja: "設定保存", en: "save setting" });
@@ -144,33 +149,30 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
         } else {
             if (webEdition) {
                 return (
-                    <div className="character-area-control">
-                        <div className="character-area-control-buttons">
-                            <div onClick={onStartClicked} className={startClassName}>
-                                start
-                            </div>
-                            <div onClick={onStopClicked} className={stopClassName}>
-                                stop
+                    <Card>
+                        <div className="character-area-control">
+                            <div className="character-area-control-buttons">
+                                <div onClick={onStartClicked} className={startClassName}>
+                                    {t('start')}
+                                </div>
+                                <div onClick={onStopClicked} className={stopClassName}>
+                                    {t('stop')}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </Card>
                 );
             } else {
                 return (
-                    <div className="character-area-control">
-                        <div className="character-area-control-buttons">
-                            <div onClick={onStartClicked} className={startClassName}>
-                                start
-                            </div>
-                            <div onClick={onStopClicked} className={stopClassName}>
-                                stop
-                            </div>
-
-                            <div onClick={onPassThroughClicked} className={passThruClassName}>
-                                passthru
+                    <Card>
+                        <div className="character-area-control">
+                            <div className="character-area-control-buttons">
+                                <Button onClick={onStartClicked} className={startClassName}>{t('start')}</Button>
+                                <Button onClick={onStopClicked} className={stopClassName}>{t('stop')}</Button>
+                                <Button onClick={onPassThroughClicked} className={passThruClassName}>{t('passthru')}</Button>
                             </div>
                         </div>
-                    </div>
+                    </Card>
                 );
             }
         }
@@ -199,42 +201,29 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
 
         return (
             <div className="character-area-control">
-                <div className="character-area-control-title">GAIN:</div>
-                <div className="character-area-control-field">
-                    <div className="character-area-slider-control">
-                        <span className="character-area-slider-control-kind">in</span>
-                        <span className="character-area-slider-control-slider">
-                            <input
-                                type="range"
-                                min="0.1"
-                                max="10.0"
-                                step="0.1"
-                                value={currentInputGain}
-                                onChange={(e) => {
-                                    inputValueUpdatedAction(Number(e.target.value));
-                                }}
-                            ></input>
-                        </span>
-                        <span className="character-area-slider-control-val">{currentInputGain}</span>
-                    </div>
+                <Card>
+                    {/* <div className="character-area-control-title">{t('GAIN')}</div> */}
+                    <h2>{t('GAIN')}</h2>
+                    <div className="character-area-control-field">
+                        <div className="character-area-slider-control">
+                            <span className="character-area-slider-control-slider">
+                                <div>
+                                    <Label>{t('in')}: {currentInputGain}</Label>
+                                    <Slider style={{"display": "grid"}} width="100%" min={0.1} max={10.0} step={0.1} value={currentInputGain} onChange={(_, data) => {inputValueUpdatedAction(data.value);}} />
+                                </div>
+                            </span>
+                            {/* <span className="character-area-slider-control-val">{currentInputGain}</span> */}
+                        </div>
 
-                    <div className="character-area-slider-control">
-                        <span className="character-area-slider-control-kind">out</span>
-                        <span className="character-area-slider-control-slider">
-                            <input
-                                type="range"
-                                min="0.1"
-                                max="10.0"
-                                step="0.1"
-                                value={currentOutputGain}
-                                onChange={(e) => {
-                                    outputValueUpdatedAction(Number(e.target.value));
-                                }}
-                            ></input>
-                        </span>
-                        <span className="character-area-slider-control-val">{currentOutputGain}</span>
+                        <div className="character-area-slider-control">
+                            <span className="character-area-slider-control-slider">
+                                <Label>{t('out')}: {currentOutputGain}</Label>
+                                <Slider style={{"display": "grid"}} width="100%" min={0.1} max={10.0} step={0.1} value={currentOutputGain} onChange={(_, data) => {outputValueUpdatedAction(data.value); }} />
+                            </span>
+                            {/* <span className="character-area-slider-control-val">{currentOutputGain}</span> */}
+                        </div>
                     </div>
-                </div>
+                </Card>
             </div>
         );
     }, [serverSetting.serverSetting, setting, setVoiceChangerClientSetting, serverSetting.updateServerSettings]);

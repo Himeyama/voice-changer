@@ -25,7 +25,8 @@
         // "noEmit": true,
         /* For avoid WebGL2 error */
         /* https://stackoverflow.com/questions/52846622/error-ts2430-interface-webglrenderingcontext-incorrectly-extends-interface-w */
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "resolveJsonModule": true
     },
     /* tscコマンドで読み込むファイルを指定 */
     "include": ["src/**/*.ts", "src/**/*.tsx"],

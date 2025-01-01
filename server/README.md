@@ -1,5 +1,5 @@
-MMVC Server
+## 実行
 
-See this document. 
-[Japanese](/README_dev_ja.md) / [English](/README_dev_en.md)
-
+```ps1
+poetry run python -m VVMCServerCIO
+```

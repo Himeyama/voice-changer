@@ -7,5 +7,12 @@
     "prettier.tabWidth": 4,
     "files.associations": {
         "*.css": "postcss"
+    },
+    "liveServer.settings.root": "/dist",
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     }
 }

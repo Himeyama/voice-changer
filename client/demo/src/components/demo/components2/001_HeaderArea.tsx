@@ -4,6 +4,8 @@ import { useAppRoot } from "../../../001_provider/001_AppRootProvider";
 import { useAppState } from "../../../001_provider/001_AppStateProvider";
 import { useIndexedDB } from "@dannadori/voice-changer-client-js";
 import { useMessageBuilder } from "../../../hooks/useMessageBuilder";
+// import { Slider } from "@fluentui/react";
+// import { Slider } from "@fluentui/react-components";
 
 export type HeaderAreaProps = {
     mainTitle: string;
@@ -26,21 +28,23 @@ export const HeaderArea = (props: HeaderAreaProps) => {
 
     const githubLink = useMemo(() => {
         return isDesktopApp() ? (
-            <span
-                className="link tooltip"
-                onClick={() => {
-                    // @ts-ignore
-                    window.electronAPI.openBrowser("https://github.com/w-okada/voice-changer");
-                }}
-            >
-                <img src="./assets/icons/github.svg" />
-                <div className="tooltip-text">{messageBuilderState.getMessage(__filename, "github")}</div>
-            </span>
+            // <span
+            //     className="link tooltip"
+            //     onClick={() => {
+            //         // @ts-ignore
+            //         window.electronAPI.openBrowser("https://github.com/w-okada/voice-changer");
+            //     }}
+            // >
+            //     <img src="./assets/icons/github.svg" />
+            //     <div className="tooltip-text">{messageBuilderState.getMessage(__filename, "github")}</div>
+            // </span>
+            <div></div>
         ) : (
-            <a className="link tooltip" href="https://github.com/w-okada/voice-changer" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/icons/github.svg" />
-                <div className="tooltip-text">{messageBuilderState.getMessage(__filename, "github")}</div>
-            </a>
+            // <a className="link tooltip" href="https://github.com/w-okada/voice-changer" target="_blank" rel="noopener noreferrer">
+            //     <img src="./assets/icons/github.svg" />
+            //     <div className="tooltip-text">{messageBuilderState.getMessage(__filename, "github")}</div>
+            // </a>
+            <div></div>
         );
     }, []);
 

@@ -65,15 +65,19 @@
         "@dannadori/voice-changer-client-js": "^1.0.182",
         "@dannadori/voice-changer-js": "^1.0.2",
         "@dannadori/worker-manager": "^1.0.20",
+        "@fluentui/react-components": "^9.56.8",
         "@fortawesome/fontawesome-svg-core": "^6.5.1",
         "@fortawesome/free-brands-svg-icons": "^6.5.1",
         "@fortawesome/free-regular-svg-icons": "^6.5.1",
         "@fortawesome/free-solid-svg-icons": "^6.5.1",
         "@fortawesome/react-fontawesome": "^0.2.0",
         "@tensorflow/tfjs": "^4.17.0",
+        "i18next": "^24.2.0",
+        "i18next-browser-languagedetector": "^8.0.2",
         "onnxruntime-web": "^1.17.1",
         "protobufjs": "^7.2.6",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "react-i18next": "^15.4.0"
     }
 }

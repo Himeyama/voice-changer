@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { useAppState } from "../../../001_provider/001_AppStateProvider";
 import { useAppRoot } from "../../../001_provider/001_AppRootProvider";
+import { useTranslation } from "react-i18next"; // 追加
+import { Card, Select } from "@fluentui/react-components";
 
 export type ConvertProps = {
     inputChunkNums: number[];
@@ -9,6 +11,7 @@ export type ConvertProps = {
 export const ConvertArea = (props: ConvertProps) => {
     const { setting, serverSetting, setWorkletNodeSetting, trancateBuffer, webEdition } = useAppState();
     const { appGuiSettingState } = useAppRoot();
+    const { t } = useTranslation(); // 追加
     const edition = appGuiSettingState.edition;
 
     const convertArea = useMemo(() => {
@@ -31,9 +34,6 @@ export const ConvertArea = (props: ConvertProps) => {
             memory: 0,
         });
 
-        // const onClassName = serverSetting.serverSetting.gpu == 0 ? "config-sub-area-button-active" : "config-sub-area-button";
-        // const offClassName = serverSetting.serverSetting.gpu == 0 ? "config-sub-area-button" : "config-sub-area-button-active";
-
         const cpuClassName = serverSetting.serverSetting.gpu == -1 ? "config-sub-area-button-active" : "config-sub-area-button";
         const gpu0ClassName = serverSetting.serverSetting.gpu == 0 ? "config-sub-area-button-active" : "config-sub-area-button";
         const gpu1ClassName = serverSetting.serverSetting.gpu == 1 ? "config-sub-area-button-active" : "config-sub-area-button";
@@ -44,7 +44,8 @@ export const ConvertArea = (props: ConvertProps) => {
             edition.indexOf("onnxdirectML-cuda") >= 0 ? (
                 <>
                     <div className="config-sub-area-control">
-                        <div className="config-sub-area-control-title">GPU(dml):</div>
+                        <h2>{t('GPU')}</h2>
+                        {/* <div className="config-sub-area-control-title">{t('GPU(dml)')}</div> */}
                         <div className="config-sub-area-control-field">
                             <div className="config-sub-area-buttons">
                                 <div
@@ -104,7 +105,7 @@ export const ConvertArea = (props: ConvertProps) => {
                                 </div>
                                 <div className="config-sub-area-control">
                                     <span className="config-sub-area-button-text-small">
-                                        <a href="https://github.com/w-okada/voice-changer/issues/410">more info</a>
+                                        <a href="https://github.com/w-okada/voice-changer/issues/410">{t('more info')}</a>
                                     </span>
                                 </div>
                             </div>
@@ -115,9 +116,10 @@ export const ConvertArea = (props: ConvertProps) => {
                 <></>
             ) : (
                 <div className="config-sub-area-control">
-                    <div className="config-sub-area-control-title">GPU:</div>
+                    <h2>{t('GPU')}</h2>
+                    {/* <div className="config-sub-area-control-title">{t('GPU')}</div> */}
                     <div className="config-sub-area-control-field">
-                        <select
+                        <Select
                             className="body-select"
                             value={serverSetting.serverSetting.gpu}
                             onChange={(e) => {
@@ -132,7 +134,7 @@ export const ConvertArea = (props: ConvertProps) => {
                                     </option>
                                 );
                             })}
-                        </select>
+                        </Select>
                     </div>
                 </div>
             );
@@ -141,9 +143,10 @@ export const ConvertArea = (props: ConvertProps) => {
             <></>
         ) : (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title">EXTRA:</div>
+                <h2>{t('EXTRA')}</h2>
+                {/* <div className="config-sub-area-control-title">{t('EXTRA')}</div> */}
                 <div className="config-sub-area-control-field">
-                    <select
+                    <Select
                         className="body-select"
                         value={serverSetting.serverSetting.extraConvertSize}
                         onChange={(e) => {
@@ -158,37 +161,40 @@ export const ConvertArea = (props: ConvertProps) => {
                                 </option>
                             );
                         })}
-                    </select>
+                    </Select>
                 </div>
             </div>
         );
         return (
-            <div className="config-sub-area">
-                <div className="config-sub-area-control">
-                    <div className="config-sub-area-control-title">CHUNK:</div>
-                    <div className="config-sub-area-control-field">
-                        <select
-                            className="body-select"
-                            value={setting.workletNodeSetting.inputChunkNum}
-                            onChange={(e) => {
-                                setWorkletNodeSetting({ ...setting.workletNodeSetting, inputChunkNum: Number(e.target.value) });
-                                trancateBuffer();
-                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverReadChunkSize: Number(e.target.value) });
-                            }}
-                        >
-                            {nums.map((x) => {
-                                return (
-                                    <option key={x} value={x}>
-                                        {x} ({((x * 128 * 1000) / 48000).toFixed(1)} ms, {x * 128})
-                                    </option>
-                                );
-                            })}
-                        </select>
+            <Card>
+                <div className="config-sub-area">
+                    <div className="config-sub-area-control">
+                        <h2>{t('CHUNK')}</h2>
+                        {/* <div className="config-sub-area-control-title">{t('CHUNK')}</div> */}
+                        <div className="config-sub-area-control-field">
+                            <Select
+                                className="body-select"
+                                value={setting.workletNodeSetting.inputChunkNum}
+                                onChange={(e) => {
+                                    setWorkletNodeSetting({ ...setting.workletNodeSetting, inputChunkNum: Number(e.target.value) });
+                                    trancateBuffer();
+                                    serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverReadChunkSize: Number(e.target.value) });
+                                }}
+                            >
+                                {nums.map((x) => {
+                                    return (
+                                        <option key={x} value={x}>
+                                            {x} ({((x * 128 * 1000) / 48000).toFixed(1)} ms, {x * 128})
+                                        </option>
+                                    );
+                                })}
+                            </Select>
+                        </div>
                     </div>
+                    {extraArea}
+                    {gpuSelect}
                 </div>
-                {extraArea}
-                {gpuSelect}
-            </div>
+            </Card>
         );
     }, [serverSetting.serverSetting, setting, serverSetting.updateServerSettings, setWorkletNodeSetting, edition]);
 

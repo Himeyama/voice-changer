@@ -15,6 +15,9 @@ import { Demo } from "./components/demo/010_Demo";
 import { useMessageBuilder } from "./hooks/useMessageBuilder";
 import { removeDB as webDBRemove } from "@dannadori/voice-changer-js";
 
+import './i18n';
+import { FluentProvider, webLightTheme } from "@fluentui/react-components";
+
 library.add(fas, far, fab);
 
 const container = document.getElementById("app")!;
@@ -30,7 +33,9 @@ const App = () => {
         }
     }, [appGuiSettingState.appGuiSetting.type]);
 
-    return <>{front}</>;
+    return (<FluentProvider theme={webLightTheme}>
+        {front}
+    </FluentProvider>);
 };
 
 const AppStateWrapper = () => {
