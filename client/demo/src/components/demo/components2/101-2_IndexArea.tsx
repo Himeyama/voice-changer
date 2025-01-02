@@ -36,22 +36,20 @@ export const IndexArea = (_props: IndexAreaProps) => {
 
         return (
             <div className="character-area-control">
-                <Card>
-                    <h2>{t('index')}</h2>
-                    <div className="slider-with-label">
-                        <Slider
-                            min={0}
-                            max={1}
-                            step={0.1}
-                            defaultValue={1}
-                            value={currentIndexRatio}
-                            onChange={(_, data) => {
-                                indexRatioValueUpdatedAction(data.value);
-                            }}
-                        />
-                        <Label className="slider-label">{currentIndexRatio}</Label>
-                    </div>
-                </Card>
+                <h3>{t('index')}</h3>
+                <div className="slider-with-label">
+                    <Slider
+                        min={0}
+                        max={1}
+                        step={0.1}
+                        defaultValue={1}
+                        value={currentIndexRatio}
+                        onChange={(_, data) => {
+                            indexRatioValueUpdatedAction(data.value);
+                        }}
+                    />
+                    <Label className="slider-label">{currentIndexRatio}</Label>
+                </div>
             </div>
         );
     }, [serverSetting.serverSetting, serverSetting.updateServerSettings, selected]);

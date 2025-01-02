@@ -1,12 +1,15 @@
 import React, { useMemo } from "react";
 import { useGuiState } from "../001_GuiStateProvider";
 import { useAppState } from "../../../001_provider/001_AppStateProvider";
+import { useTranslation } from "react-i18next";
+import { Button } from "@fluentui/react-components";
 
 export type MoreActionAreaProps = {};
 
 export const MoreActionArea = (_props: MoreActionAreaProps) => {
     const { stateControls } = useGuiState();
     const { webEdition } = useAppState();
+    const { t } = useTranslation();
 
     const serverIORecorderRow = useMemo(() => {
         const onOpenMergeLabClicked = () => {
@@ -23,23 +26,13 @@ export const MoreActionArea = (_props: MoreActionAreaProps) => {
         };
         return (
             <>
-                <div className="config-sub-area-control left-padding-1">
-                    <div className="config-sub-area-control-title">more...</div>
-                    <div className="config-sub-area-control-field config-sub-area-control-field-long">
-                        <div className="config-sub-area-buttons">
-                            <div onClick={onOpenMergeLabClicked} className="config-sub-area-button">
-                                Merge Lab
-                            </div>
-                            <div onClick={onOpenAdvancedSettingClicked} className="config-sub-area-button">
-                                Advanced Setting
-                            </div>
-                            <div onClick={onOpenGetServerInformationClicked} className="config-sub-area-button">
-                                Server Info
-                            </div>
-                            <div onClick={onOpenGetClientInformationClicked} className="config-sub-area-button">
-                                Client Info
-                            </div>
-                        </div>
+                <div className="config-sub-area-control">
+                    <h3>{t('more...')}</h3>
+                    <div style={{ display: "grid", gridTemplateColumns: "auto auto auto auto 1fr", columnGap: "8px" }}>
+                        <Button onClick={onOpenMergeLabClicked}>{t('merge-lab')}</Button>
+                        <Button onClick={onOpenAdvancedSettingClicked}>{t('advanced-setting')}</Button>
+                        <Button onClick={onOpenGetServerInformationClicked}>{t('server-info')}</Button>
+                        <Button onClick={onOpenGetClientInformationClicked}>{t('client-info')}</Button>
                     </div>
                 </div>
             </>

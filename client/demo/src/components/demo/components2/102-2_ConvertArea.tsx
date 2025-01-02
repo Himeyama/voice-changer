@@ -44,7 +44,7 @@ export const ConvertArea = (props: ConvertProps) => {
             edition.indexOf("onnxdirectML-cuda") >= 0 ? (
                 <>
                     <div className="config-sub-area-control">
-                        <h2>{t('GPU')}</h2>
+                        <h3>{t('GPU')}</h3>
                         {/* <div className="config-sub-area-control-title">{t('GPU(dml)')}</div> */}
                         <div className="config-sub-area-control-field">
                             <div className="config-sub-area-buttons">
@@ -116,7 +116,7 @@ export const ConvertArea = (props: ConvertProps) => {
                 <></>
             ) : (
                 <div className="config-sub-area-control">
-                    <h2>{t('GPU')}</h2>
+                    <h3>{t('GPU')}</h3>
                     {/* <div className="config-sub-area-control-title">{t('GPU')}</div> */}
                     <div className="config-sub-area-control-field">
                         <Select
@@ -143,7 +143,7 @@ export const ConvertArea = (props: ConvertProps) => {
             <></>
         ) : (
             <div className="config-sub-area-control">
-                <h2>{t('EXTRA')}</h2>
+                <h3>{t('EXTRA')}</h3>
                 {/* <div className="config-sub-area-control-title">{t('EXTRA')}</div> */}
                 <div className="config-sub-area-control-field">
                     <Select
@@ -166,35 +166,33 @@ export const ConvertArea = (props: ConvertProps) => {
             </div>
         );
         return (
-            <Card>
-                <div className="config-sub-area">
-                    <div className="config-sub-area-control">
-                        <h2>{t('CHUNK')}</h2>
-                        {/* <div className="config-sub-area-control-title">{t('CHUNK')}</div> */}
-                        <div className="config-sub-area-control-field">
-                            <Select
-                                className="body-select"
-                                value={setting.workletNodeSetting.inputChunkNum}
-                                onChange={(e) => {
-                                    setWorkletNodeSetting({ ...setting.workletNodeSetting, inputChunkNum: Number(e.target.value) });
-                                    trancateBuffer();
-                                    serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverReadChunkSize: Number(e.target.value) });
-                                }}
-                            >
-                                {nums.map((x) => {
-                                    return (
-                                        <option key={x} value={x}>
-                                            {x} ({((x * 128 * 1000) / 48000).toFixed(1)} ms, {x * 128})
-                                        </option>
-                                    );
-                                })}
-                            </Select>
-                        </div>
+            <div className="config-sub-area">
+                <div className="config-sub-area-control">
+                    <h3>{t('CHUNK')}</h3>
+                    {/* <div className="config-sub-area-control-title">{t('CHUNK')}</div> */}
+                    <div className="config-sub-area-control-field">
+                        <Select
+                            className="body-select"
+                            value={setting.workletNodeSetting.inputChunkNum}
+                            onChange={(e) => {
+                                setWorkletNodeSetting({ ...setting.workletNodeSetting, inputChunkNum: Number(e.target.value) });
+                                trancateBuffer();
+                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverReadChunkSize: Number(e.target.value) });
+                            }}
+                        >
+                            {nums.map((x) => {
+                                return (
+                                    <option key={x} value={x}>
+                                        {x} ({((x * 128 * 1000) / 48000).toFixed(1)} ms, {x * 128})
+                                    </option>
+                                );
+                            })}
+                        </Select>
                     </div>
-                    {extraArea}
-                    {gpuSelect}
                 </div>
-            </Card>
+                {extraArea}
+                {gpuSelect}
+            </div>
         );
     }, [serverSetting.serverSetting, setting, serverSetting.updateServerSettings, setWorkletNodeSetting, edition]);
 

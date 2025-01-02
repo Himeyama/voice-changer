@@ -4,6 +4,8 @@ import { useAppRoot } from "../../../001_provider/001_AppRootProvider";
 import { useAppState } from "../../../001_provider/001_AppStateProvider";
 import { useIndexedDB } from "@dannadori/voice-changer-client-js";
 import { useMessageBuilder } from "../../../hooks/useMessageBuilder";
+import { useTranslation } from "react-i18next";
+import { Button } from "@fluentui/react-components";
 // import { Slider } from "@fluentui/react";
 // import { Slider } from "@fluentui/react-components";
 
@@ -13,6 +15,7 @@ export type HeaderAreaProps = {
 };
 
 export const HeaderArea = (props: HeaderAreaProps) => {
+    const { t } = useTranslation();
     const { appGuiSettingState } = useAppRoot();
     const messageBuilderState = useMessageBuilder();
     const { clearSetting, webInfoState } = useAppState();
@@ -137,15 +140,16 @@ export const HeaderArea = (props: HeaderAreaProps) => {
                 </div>
                 <div className="icons">
                     <span className="belongings">
-                        {githubLink}
+                        {/* {githubLink}
                         {manualLink}
                         {toolLink}
-                        {coffeeLink}
+                        {coffeeLink} */}
                         {/* {licenseButton} */}
                     </span>
                     <span className="belongings">
-                        <div className="belongings-button" onClick={onClearSettingClicked}>
-                            clear setting
+                        {/* <div className="belongings-button" onClick={onClearSettingClicked}>{t('clear-settings')}</div> */}
+                        <div>
+                            <Button onClick={onClearSettingClicked}>{t('clear-settings')}</Button>
                         </div>
                         {/* <div className="belongings-button" onClick={onReloadClicked}>reload</div>
                         <div className="belongings-button" onClick={onReselectVCClicked}>select vc</div> */}

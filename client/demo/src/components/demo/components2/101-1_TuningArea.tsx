@@ -40,21 +40,19 @@ export const TuningArea = (_props: TuningAreaProps) => {
             };
             return (
                 <div className="character-area-control">
-                    <Card>
-                        <h2>{t('tune')}</h2>
-                        <div className="slider-with-label">
-                            <Slider
-                                min={-2}
-                                max={2}
-                                step={1}
-                                value={beatriceJVSSpeakerPitch}
-                                onChange={(_, data) => {
-                                    updateBeatriceJVSSpeakerPitch(data.value);
-                                }}
-                            />
-                            <Label className="slider-label">{beatriceJVSSpeakerPitch}</Label>
-                        </div>
-                    </Card>
+                    <h3>{t('tune')}</h3>
+                    <div className="slider-with-label">
+                        <Slider
+                            min={-2}
+                            max={2}
+                            step={1}
+                            value={beatriceJVSSpeakerPitch}
+                            onChange={(_, data) => {
+                                updateBeatriceJVSSpeakerPitch(data.value);
+                            }}
+                        />
+                        <Label className="slider-label">{beatriceJVSSpeakerPitch}</Label>
+                    </div>
                 </div>
             );
         }
@@ -75,23 +73,21 @@ export const TuningArea = (_props: TuningAreaProps) => {
 
         return (
             <div className="character-area-control">
-                <Card>
-                    <h2>{t('tune')}</h2>
-                    <div className="slider-with-label">
-                        <Slider
-                            min={-18}
-                            max={18}
-                            step={1}
-                            defaultValue={12}
-                            value={currentTuning}
-                            onChange={(_, data) => {
-                                tranValueUpdatedAction(data.value);
-                            }}
-                            style={{ width: "100%" }}
-                        />
-                        <Label className="slider-label">{currentTuning}</Label>
-                    </div>
-                </Card>
+                <h3>{t('tune')}</h3>
+                <div className="slider-with-label">
+                    <Slider
+                        min={-18}
+                        max={18}
+                        step={1}
+                        defaultValue={12}
+                        value={currentTuning}
+                        onChange={(_, data) => {
+                            tranValueUpdatedAction(data.value);
+                        }}
+                        style={{ width: "100%" }}
+                    />
+                    <Label className="slider-label">{currentTuning}</Label>
+                </div>
             </div>
         );
     }, [serverSetting.serverSetting, serverSetting.updateServerSettings, selected, webEdition, webInfoState.upkey]);

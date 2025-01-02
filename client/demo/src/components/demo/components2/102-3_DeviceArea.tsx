@@ -4,10 +4,13 @@ import { fileSelectorAsDataURL, useIndexedDB } from "@dannadori/voice-changer-cl
 import { useGuiState } from "../001_GuiStateProvider";
 import { AUDIO_ELEMENT_FOR_PLAY_MONITOR, AUDIO_ELEMENT_FOR_PLAY_RESULT, AUDIO_ELEMENT_FOR_TEST_CONVERTED, AUDIO_ELEMENT_FOR_TEST_CONVERTED_ECHOBACK, INDEXEDDB_KEY_AUDIO_MONITR, INDEXEDDB_KEY_AUDIO_OUTPUT } from "../../../const";
 import { isDesktopApp } from "../../../const";
+import { useTranslation } from "react-i18next";
+import { Button, Label, Radio, RadioGroup, Select, Slider } from "@fluentui/react-components";
 
 export type DeviceAreaProps = {};
 
 export const DeviceArea = (_props: DeviceAreaProps) => {
+    const { t } = useTranslation();
     const { setting, serverSetting, audioContext, setAudioOutputElementId, setAudioMonitorElementId, initializedRef, setVoiceChangerClientSetting, startOutputRecording, stopOutputRecording, webEdition } = useAppState();
     const { isConverting, audioInputForGUI, inputAudioDeviceInfo, setAudioInputForGUI, fileInputEchoback, setFileInputEchoback, setAudioOutputForGUI, setAudioMonitorForGUI, audioOutputForGUI, audioMonitorForGUI, outputAudioDeviceInfo, shareScreenEnabled, setShareScreenEnabled, reloadDeviceInfo } = useGuiState();
     const [inputHostApi, setInputHostApi] = useState<string>("ALL");
@@ -24,14 +27,16 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
         if (webEdition) {
             return (
                 <div className="config-sub-area-control">
-                    <div className="config-sub-area-control-title">AUDIO:</div>
+                    <h3>{t('audio')}</h3>
+                    <Button onClick={reloadDeviceInfo}></Button>
+                    {/* <div className="config-sub-area-control-title">AUDIO:</div>
                     <div className="config-sub-area-control-field">
                         <div className="config-sub-area-buttons">
                             <div onClick={reloadDeviceInfo} className="config-sub-area-button">
                                 reload
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             );
         }
@@ -49,42 +54,12 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title">AUDIO:</div>
-                <div className="config-sub-area-control-field">
-                    <div className="config-sub-area-noise-container">
-                        <div className="config-sub-area-noise-checkbox-container">
-                            <input
-                                type="radio"
-                                id="client-device"
-                                name="device-mode"
-                                checked={clientChecked}
-                                onChange={() => {
-                                    onDeviceModeChanged(0);
-                                }}
-                            />{" "}
-                            <label htmlFor="client-device">client</label>
-                        </div>
-                        <div className="config-sub-area-noise-checkbox-container">
-                            <input
-                                className="left-padding-1"
-                                type="radio"
-                                id="server-device"
-                                name="device-mode"
-                                checked={serverChecked}
-                                onChange={() => {
-                                    onDeviceModeChanged(1);
-                                }}
-                            />
-                            <label htmlFor="server-device">server</label>
-                        </div>
-
-                        <div className="config-sub-area-buttons">
-                            <div onClick={reloadDeviceInfo} className="config-sub-area-button">
-                                reload
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h3>{t('audio')}</h3>
+                <RadioGroup className="select-audio-mode">
+                    <Radio id="client-device" checked={clientChecked} label={t('client')} onChange={() => {onDeviceModeChanged(0);}}></Radio>
+                    <Radio id="server-device" checked={clientChecked} label={t('server')} onChange={() => {onDeviceModeChanged(1);}}></Radio>
+                </RadioGroup>
+                <Button onClick={reloadDeviceInfo} style={{marginTop: "8px"}}>{t('reload')}</Button>
             </div>
         );
     }, [serverSetting.serverSetting, serverSetting.updateServerSettings, isConverting]);
@@ -112,16 +87,16 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title left-padding-1">input</div>
+                <h3>{t('in')}</h3>
                 <div className="config-sub-area-control-field">
-                    <select
+                    <Select
                         className="body-select"
                         value={audioInputForGUI}
-                        onChange={async (e) => {
-                            setAudioInputForGUI(e.target.value);
-                            if (e.target.value != "file" && e.target.value != "screen") {
+                        onChange={async (_, data) => {
+                            setAudioInputForGUI(data.value);
+                            if (data.value != "file" && data.value != "screen") {
                                 try {
-                                    await setVoiceChangerClientSetting({ ...setting.voiceChangerClientSetting, audioInput: e.target.value });
+                                    await setVoiceChangerClientSetting({ ...setting.voiceChangerClientSetting, audioInput: data.value });
                                 } catch (e) {
                                     alert(e);
                                     console.error(e);
@@ -138,7 +113,7 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
                                 </option>
                             );
                         })}
-                    </select>
+                    </Select>
                 </div>
             </div>
         );
@@ -184,35 +159,35 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title left-padding-1">input</div>
+                <h3>{t('in')}</h3>
                 <div className="config-sub-area-control-field">
                     <div className="config-sub-area-control-field-auido-io">
-                        <select
+                        <Select
                             className="config-sub-area-control-field-auido-io-filter"
                             name="kinds"
                             id="kinds"
                             value={inputHostApi}
-                            onChange={(e) => {
-                                setInputHostApi(e.target.value);
+                            onChange={(_, data) => {
+                                setInputHostApi(data.value);
                             }}
                         >
                             <option value="ALL" key="ALL">
                                 ALL
                             </option>
                             {hostAPIOptions}
-                        </select>
-                        <select
+                        </Select>
+                        <Select
                             className="config-sub-area-control-field-auido-io-select"
                             value={currentValue}
-                            onChange={(e) => {
-                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverInputDeviceId: Number(e.target.value) });
+                            onChange={(_, data) => {
+                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverInputDeviceId: Number(data.value) });
                             }}
                         >
                             {filteredDevice}
                             <option value="-1" key="none">
                                 none
                             </option>
-                        </select>
+                        </Select>
                     </div>
                 </div>
             </div>
@@ -458,14 +433,14 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title left-padding-1">output</div>
+                <h3>{t('out')}</h3>
                 <div className="config-sub-area-control-field">
-                    <select
+                    <Select
                         className="body-select"
                         value={audioOutputForGUI}
-                        onChange={(e) => {
-                            setAudioOutputForGUI(e.target.value);
-                            setItem(INDEXEDDB_KEY_AUDIO_OUTPUT, e.target.value);
+                        onChange={(_, data) => {
+                            setAudioOutputForGUI(data.value);
+                            setItem(INDEXEDDB_KEY_AUDIO_OUTPUT, data.value);
                         }}
                     >
                         {outputAudioDeviceInfo.map((x) => {
@@ -475,7 +450,7 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
                                 </option>
                             );
                         })}
-                    </select>
+                    </Select>
                 </div>
             </div>
         );
@@ -526,35 +501,35 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title left-padding-1">output</div>
+                <h3>{t('out')}</h3>
                 <div className="config-sub-area-control-field">
                     <div className="config-sub-area-control-field-auido-io">
-                        <select
+                        <Select
                             className="config-sub-area-control-field-auido-io-filter"
                             name="kinds"
                             id="kinds"
                             value={outputHostApi}
-                            onChange={(e) => {
-                                setOutputHostApi(e.target.value);
+                            onChange={(_, data) => {
+                                setOutputHostApi(data.value);
                             }}
                         >
                             <option value="ALL" key="ALL">
                                 ALL
                             </option>
                             {hostAPIOptions}
-                        </select>
-                        <select
+                        </Select>
+                        <Select
                             className="config-sub-area-control-field-auido-io-select"
                             value={currentValue}
-                            onChange={(e) => {
-                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverOutputDeviceId: Number(e.target.value) });
+                            onChange={(_, data) => {
+                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverOutputDeviceId: Number(data.value) });
                             }}
                         >
                             {filteredDevice}
                             <option value="-1" key="none">
                                 none
                             </option>
-                        </select>
+                        </Select>
                     </div>
                 </div>
             </div>
@@ -580,16 +555,10 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
         const stopClassName = outputRecordingStarted ? "config-sub-area-button" : "config-sub-area-button-active";
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title">REC.</div>
-                <div className="config-sub-area-control-field">
-                    <div className="config-sub-area-buttons">
-                        <div onClick={onOutputRecordStartClicked} className={startClassName}>
-                            start
-                        </div>
-                        <div onClick={onOutputRecordStopClicked} className={stopClassName}>
-                            stop
-                        </div>
-                    </div>
+                <h3>{t('record')}</h3>
+                <div style={{ display: "grid", gridTemplateColumns: "auto auto 1fr", columnGap: "8px" }}>
+                    <Button onClick={onOutputRecordStartClicked}>{t("start-record")}</Button>
+                    <Button onClick={onOutputRecordStopClicked}>{t("stop-record")}</Button>
                 </div>
             </div>
         );
@@ -688,14 +657,14 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title left-padding-1">monitor</div>
+                <h3>{t('monitor')}</h3>
                 <div className="config-sub-area-control-field">
-                    <select
+                    <Select
                         className="body-select"
                         value={audioMonitorForGUI}
-                        onChange={(e) => {
-                            setAudioMonitorForGUI(e.target.value);
-                            setItem(INDEXEDDB_KEY_AUDIO_MONITR, e.target.value);
+                        onChange={(_, data) => {
+                            setAudioMonitorForGUI(data.value);
+                            setItem(INDEXEDDB_KEY_AUDIO_MONITR, data.value);
                         }}
                     >
                         {outputAudioDeviceInfo.map((x) => {
@@ -705,7 +674,7 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
                                 </option>
                             );
                         })}
-                    </select>
+                    </Select>
                 </div>
             </div>
         );
@@ -761,32 +730,32 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title left-padding-1">monitor</div>
+                <h3>{t('monitor')}</h3>
                 <div className="config-sub-area-control-field">
                     <div className="config-sub-area-control-field-auido-io">
-                        <select
+                        <Select
                             className="config-sub-area-control-field-auido-io-filter"
                             name="kinds"
                             id="kinds"
                             value={monitorHostApi}
-                            onChange={(e) => {
-                                setMonitorHostApi(e.target.value);
+                            onChange={(_, data) => {
+                                setMonitorHostApi(data.value);
                             }}
                         >
                             <option value="ALL" key="ALL">
                                 ALL
                             </option>
                             {hostAPIOptions}
-                        </select>
-                        <select
+                        </Select>
+                        <Select
                             className="config-sub-area-control-field-auido-io-select"
                             value={currentValue}
-                            onChange={(e) => {
-                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverMonitorDeviceId: Number(e.target.value) });
+                            onChange={(_, data) => {
+                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverMonitorDeviceId: Number(data.value) });
                             }}
                         >
                             {filteredDevice}
-                        </select>
+                        </Select>
                     </div>
                 </div>
             </div>
@@ -806,8 +775,21 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title left-padding-2">gain</div>
-                <div className="config-sub-area-control-field">
+                <h3>{t('gain')}</h3>
+                <div className="slider-with-label">
+                    <Slider
+                        min={0.5}
+                        max={10}
+                        step={0.5}
+                        value={currentMonitorGain}
+                        onChange={(_, data) => {
+                            monitorValueUpdatedAction(Number(data.value));
+                        }}
+                    />
+                    <Label className="slider-label">{currentMonitorGain}</Label>
+                </div>
+                {/* <div className="config-sub-area-control-title left-padding-2">gain</div> */}
+                {/* <div className="config-sub-area-control-field">
                     <div className="config-sub-area-control-field-auido-io">
                         <span className="character-area-slider-control-slider">
                             <input
@@ -823,7 +805,7 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
                         </span>
                         <span className="character-area-slider-control-val">{currentMonitorGain}</span>
                     </div>
-                </div>
+                </div> */}
             </div>
         );
     }, [serverSetting.serverSetting, setting, setVoiceChangerClientSetting, serverSetting.updateServerSettings]);

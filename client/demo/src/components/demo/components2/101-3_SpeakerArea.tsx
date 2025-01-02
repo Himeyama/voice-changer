@@ -1,9 +1,12 @@
 import React, { useMemo } from "react";
 import { useAppState } from "../../../001_provider/001_AppStateProvider";
+import { useTranslation } from "react-i18next";
+import { Select } from "@fluentui/react-components";
 
 export type SpeakerAreaProps = {};
 
 export const SpeakerArea = (_props: SpeakerAreaProps) => {
+    const { t } = useTranslation();
     const { serverSetting } = useAppState();
 
     const selected = useMemo(() => {
@@ -40,7 +43,7 @@ export const SpeakerArea = (_props: SpeakerAreaProps) => {
 
         return (
             <div className="character-area-control">
-                <div className="character-area-control-title">Voice:</div>
+                <div className="character-area-control-title">{t('voice')}</div>
                 <div className="character-area-control-field">
                     <div className="character-area-slider-control">
                         <span className="character-area-slider-control-kind">src</span>
@@ -83,19 +86,20 @@ export const SpeakerArea = (_props: SpeakerAreaProps) => {
 
         return (
             <div className="character-area-control">
-                <div className="character-area-control-title">{selected.voiceChangerType == "DDSP-SVC" || selected.voiceChangerType == "so-vits-svc-40" || selected.voiceChangerType == "RVC" ? "Voice:" : ""}</div>
+                <h3>{selected.voiceChangerType == "DDSP-SVC" || selected.voiceChangerType == "so-vits-svc-40" || selected.voiceChangerType == "RVC" ? t('voice') : ""}</h3>
+                {/* <div className="character-area-control-title">{selected.voiceChangerType == "DDSP-SVC" || selected.voiceChangerType == "so-vits-svc-40" || selected.voiceChangerType == "RVC" ? t('voice') : ""}</div> */}
                 <div className="character-area-control-field">
                     <div className="character-area-slider-control">
                         <span className="character-area-slider-control-kind">{selected.voiceChangerType == "MMVCv13" || selected.voiceChangerType == "MMVCv15" ? "dst" : ""}</span>
                         <span className="character-area-slider-control-slider">
-                            <select
+                            <Select
                                 value={serverSetting.serverSetting.dstId}
-                                onChange={(e) => {
-                                    srcSpeakerValueUpdatedAction(Number(e.target.value));
+                                onChange={(_, data) => {
+                                    srcSpeakerValueUpdatedAction(Number(data.value));
                                 }}
                             >
                                 {options}
-                            </select>
+                            </Select>
                         </span>
                     </div>
                 </div>

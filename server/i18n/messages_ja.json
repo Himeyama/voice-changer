@@ -11,10 +11,6 @@
     "protocol_http": "プロトコル: HTTP",
     "open_url_in_browser": "ブラウザで次のURLを開いてください。",
     "in_many_cases": "多くの場合は次のいずれかのURLにアクセスすると起動します。",
-    "https_ip": "https://{ip}:{EX_PORT}/",
-    "https_localhost": "https://localhost:{PORT}/",
-    "https_hostname": "https://{hostname}:{PORT}/",
-    "http_localhost": "http://localhost:{PORT}/",
     "web_server_launch_exception": "[Voice Changer] Webサーバ起動エラー: {0}",
     "web_server_https_launch_exception": "[Voice Changer] Webサーバ(https)起動エラー: {0}",
     "client_launch_exception": "[Voice Changer] クライアント起動エラー: {0}"

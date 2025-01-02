@@ -112,6 +112,13 @@ body {
         font-weight: bold;
     }
 
+    h3 {
+        margin-bottom: 16px;
+        margin-top: 16px;
+        font-family: "Yu Gothic UI";
+        font-weight: bold;
+    }
+
 
     .partition {
         width: 100%;
@@ -769,11 +776,6 @@ body {
     justify-content: space-around;
 }
 
-.body-select {
-    color: rgb(30, 30, 30);
-    max-width: 100%;
-}
-
 .body-select-50 {
     color: rgb(30, 30, 30);
     max-width: 50%;
@@ -988,12 +990,12 @@ body {
                     }
 
                     .model-slot-buttons {
-
+                        margin-top: 8px;
+                        display: grid;
+                        grid-template-columns: auto auto;
                         flex-direction: column;
-                        border-bottom: solid 1px #a00;
-                        width: 20%;
                         font-size: 0.8rem;
-                        padding: 4px;
+                        height: 128px;
                     }
 
                     .model-slot-button {
@@ -1344,23 +1346,20 @@ body {
 }
 
 .model-slot-area {
-    display: inline-block;
-    background: var(--company-color2);
-    border-radius: 10px;
-    padding: 20px;
+    display: block;
+    margin: 8px;
+    /* background: var(--company-color2); */
+    /* border-radius: 8px; */
+    /* padding: 20px; */
 
     .model-slot-panel {
-
-        flex-direction: row;
-        gap: 5px;
+        margin-top: -12px;
 
         .model-slot-tiles-container {
-
+            display: flex;
             flex-direction: row;
-            gap: 2px;
             flex-wrap: wrap;
-            overflow-y: scroll;
-            max-height: 12rem;
+            gap: 8px;
 
             &::-webkit-scrollbar {
                 width: 10px;
@@ -1381,11 +1380,11 @@ body {
         }
 
         .model-slot-buttons {
-
-            gap: 5px;
-            flex-direction: column;
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: auto auto auto 1fr;
             justify-content: space-between;
-            width: 4rem;
+            column-gap: 8px;
 
             .model-slot-button {
                 border: solid 2px #999;
@@ -1441,35 +1440,30 @@ body {
 
 .model-slot-tile-container,
 .model-slot-tile-container-selected {
-    width: 6rem;
-    height: 6rem;
-    border-radius: 2px;
-
-    flex-direction: column;
+    border-radius: 4px;
     align-items: center;
+    transition: .3s;
+    cursor: pointer;
 }
 
 .model-slot-tile-container-selected {
-    background: #43030c;
+    background: #EEEEEE;
 }
 
 .model-slot-tile-container:hover {
-    background: #43030c;
+    background: #DDDDDD;
 }
 
 .model-slot-tile-icon-div {
-    width: 5rem;
-    height: 5rem;
     padding-top: 4px;
     position: relative;
 }
 
 .model-slot-tile-icon {
-    width: 5rem;
-    height: 5rem;
     object-fit: contain;
     border-radius: 10px;
     position: absolute;
+    height: 80px;
 }
 
 .model-slot-tile-vctype {
@@ -1492,28 +1486,32 @@ body {
 .model-slot-tile-dscription {
     font-size: 0.7rem;
     font-weight: 700;
-    color: navajowhite;
+    color: #333;
     padding-top: 4px;
+}
+
+.slider-with-label {
+    display: grid;
+    grid-template-columns: 1fr 24px;
+
+    .slider-label {
+        margin: auto 0;
+    }
 }
 
 .character-area {
     margin: 8px 8px 0 8px;
 
     .portrait-area {
-        width: 20rem;
-        height: 20rem;
 
         .portrait-container {
             position: relative;
-            width: 20rem;
-            height: 20rem;
 
             .portrait {
-                width: 20rem;
-                height: 20rem;
+                width: 320px;
+                height: 320px;
                 object-fit: contain;
-                border-radius: 10px;
-                position: absolute;
+                border-radius: 4px;
             }
 
             .portrait-area-status {
@@ -1559,18 +1557,14 @@ body {
             margin-top: 8px;
             align-items: center;
 
-            .slider-with-label {
+            .portrait-control-area {
                 display: grid;
-                grid-template-columns: 1fr auto;
-
-                .slider-label {
-                    margin: auto 0;
-                }
+                grid-template-columns: auto 1fr;
+                column-gap: 16px;
             }
 
             .character-area-control-buttons {
-
-
+                margin-top: -8px;
                 display: grid;
                 gap: 8px;
                 grid-template-columns: auto auto auto 1fr;
@@ -1724,17 +1718,25 @@ body {
     }
 }
 
-.config-area {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+.config-area-parent {
     padding: 8px;
+}
+
+.config-area {
+    gap: 8px;
+    padding: 0px 16px;
 
     .config-sub-area {
         flex-direction: column;
         gap: 3px;
 
         .config-sub-area-control {
+            .select-audio-mode {
+                display: grid;
+                grid-template-columns: auto auto auto 1fr;
+                gap: 8px;
+            }
+
             .config-sub-area-control-title {
                 width: 5rem;
                 font-weight: 700;
@@ -1909,10 +1911,8 @@ body {
     flex-direction: column;
 
     .title1 {
-
-        flex-direction: row;
-        gap: 5px;
-        align-items: flex-end;
+        margin-bottom: 12px;
+        margin-top: 4px;
 
         .title {
             font-size: 1.8rem;

@@ -3,6 +3,8 @@ import { useAppState } from "../../../001_provider/001_AppStateProvider";
 import { useGuiState } from "../001_GuiStateProvider";
 import { useMessageBuilder } from "../../../hooks/useMessageBuilder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Card, CardHeader, CardPreview } from "@fluentui/react-components";
+import { useTranslation } from "react-i18next";
 
 export type ModelSlotAreaProps = {};
 
@@ -13,6 +15,8 @@ const SortTypes = {
 export type SortTypes = (typeof SortTypes)[keyof typeof SortTypes];
 
 export const ModelSlotArea = (_props: ModelSlotAreaProps) => {
+    const { t } = useTranslation();
+    
     const { serverSetting, getInfo, webEdition } = useAppState();
     const guiState = useGuiState();
     const messageBuilderState = useMessageBuilder();
@@ -48,13 +52,14 @@ export const ModelSlotArea = (_props: ModelSlotAreaProps) => {
                     x.iconFile.length > 0 ? (
                         <>
                             {/* <img className="model-slot-tile-icon" src={serverSetting.serverSetting.voiceChangerParams.model_dir + "/" + x.slotIndex + "/" + x.iconFile.split(/[\/\\]/).pop()} alt={x.name} /> */}
-                            <img className="model-slot-tile-icon" src={icon} alt={x.name} />
-                            <div className="model-slot-tile-vctype">{x.voiceChangerType}</div>
+                            {/* <img className="model-slot-tile-icon" src={icon} alt={x.name} /> */}
+                            {/* <div className="model-slot-tile-vctype">{x.voiceChangerType}</div> */}
+                            <img src={icon} alt={x.name} width="40px" style={{borderRadius: "20px"}}/>
                         </>
                     ) : (
                         <>
-                            <div className="model-slot-tile-icon-no-entry">no image</div>
-                            <div className="model-slot-tile-vctype">{x.voiceChangerType}</div>
+                            {/* <div className="model-slot-tile-icon-no-entry">no image</div> */}
+                            {/* <div className="model-slot-tile-vctype">{x.voiceChangerType}</div> */}
                         </>
                     );
 
@@ -69,10 +74,13 @@ export const ModelSlotArea = (_props: ModelSlotAreaProps) => {
                 };
 
                 return (
-                    <div key={index} className={tileContainerClass} onClick={clickAction}>
-                        <div className="model-slot-tile-icon-div">{iconElem}</div>
-                        <div className="model-slot-tile-dscription">{name}</div>
-                    </div>
+                    // <div key={index} className={tileContainerClass} onClick={clickAction}>
+                    //     <div className="model-slot-tile-icon-div">{iconElem}</div>
+                    //     <div className="model-slot-tile-dscription">{name}</div>
+                    // </div>
+                    <Card onClick={clickAction}>
+                        <CardHeader image={iconElem} header={name} />
+                    </Card>
                 );
             })
             .filter((x) => x != null);
@@ -86,32 +94,33 @@ export const ModelSlotArea = (_props: ModelSlotAreaProps) => {
         const sortSlotByNameClass = sortType == "name" ? "model-slot-sort-button-active" : "model-slot-sort-button";
         return (
             <div className="model-slot-area">
-                <div className="model-slot-panel">
-                    <div className="model-slot-tiles-container">{modelTiles}</div>
-                    <div className="model-slot-buttons">
-                        <div className="model-slot-sort-buttons">
-                            <div
+                <Card>
+                    <h2>{t('select-model')}</h2>
+                    <div className="model-slot-panel">
+                        <div className="model-slot-tiles-container">{modelTiles}</div>
+                        <div className="model-slot-buttons">
+                            <Button
                                 className={sortSlotByIdClass}
                                 onClick={() => {
                                     setSortType("slot");
                                 }}
                             >
                                 <FontAwesomeIcon icon={["fas", "arrow-down-1-9"]} style={{ fontSize: "1rem" }} />
-                            </div>
-                            <div
+                            </Button>
+                            <Button
                                 className={sortSlotByNameClass}
                                 onClick={() => {
                                     setSortType("name");
                                 }}
                             >
                                 <FontAwesomeIcon icon={["fas", "arrow-down-a-z"]} style={{ fontSize: "1rem" }} />
-                            </div>
-                        </div>
-                        <div className="model-slot-button" onClick={onModelSlotEditClicked}>
-                            {messageBuilderState.getMessage(__filename, "edit")}
+                            </Button>
+                            <Button onClick={onModelSlotEditClicked}>
+                                {messageBuilderState.getMessage(__filename, "edit")}
+                            </Button>
                         </div>
                     </div>
-                </div>
+                </Card>
             </div>
         );
     }, [modelTiles, sortType]);

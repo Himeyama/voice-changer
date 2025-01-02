@@ -233,20 +233,20 @@ if __name__ == "__main__":
     printMessage("in_many_cases", level=2)
     if "EX_PORT" in locals() and "EX_IP" in locals():  # シェルスクリプト経由起動(docker)
         if args.https == 1:
-            printMessage(f"https_localhost {EX_PORT}", level=1)
+            printMessage(f"https://127.0.0.1:{EX_PORT}", level=1)
             for ip in EX_IP.strip().split(" "):
-                printMessage(f"https_ip {ip} {EX_PORT}", level=1)
+                printMessage(f"https://{ip}:{EX_PORT}", level=1)
         else:
-            printMessage(f"http_localhost {EX_PORT}", level=1)
+            printMessage(f"http://127.0.0.1:{EX_PORT}", level=1)
     else:  # 直接python起動
         if args.https == 1:
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             s.connect((args.test_connect, 80))
             hostname = s.getsockname()[0]
-            printMessage(f"https_localhost {PORT}", level=1)
-            printMessage(f"https_hostname {hostname} {PORT}", level=1)
+            printMessage(f"https://127.0.0.1:{PORT}", level=1)
+            printMessage(f"https://{hostname}:{PORT}", level=1)
         else:
-            printMessage(f"http_localhost {PORT}", level=1)
+            printMessage(f"http://127.0.0.1:{PORT}", level=1)
 
     # サーバ起動
     if args.https:

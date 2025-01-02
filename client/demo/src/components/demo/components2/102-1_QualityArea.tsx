@@ -55,8 +55,7 @@ export const QualityArea = (props: QualityAreaProps) => {
             <></>
         ) : (
             <div className="config-sub-area-control">
-                {/* <div className="config-sub-area-control-title">{t('F0 Det.')}</div> */}
-                <h2>{t('F0 Det.')}</h2>
+                <h3>{t('F0 Det.')}</h3>
                 <div className="config-sub-area-control-field">
                     <Select
                         className="body-select"
@@ -75,7 +74,7 @@ export const QualityArea = (props: QualityAreaProps) => {
             <></>
         ) : (
             <div>
-                <h2>{t('S.Thresh.')}</h2>
+                <h3>{t('S.Thresh.')}</h3>
                 <Slider
                     min={0.00000}
                     max={0.001}
@@ -90,52 +89,47 @@ export const QualityArea = (props: QualityAreaProps) => {
         );
 
         return (
-            <Card>
-                <div className="config-sub-area">
-                    <div className="config-sub-area-control">
-                        {/* <div className="config-sub-area-control-title">
-                            {t('noise')}
-                        </div> */}
-                        <h2>{t('noise')}</h2>
-                        <div className="config-sub-area-control-field">
-                            <div className="config-sub-area-noise-container">
-                                <div className="config-sub-area-noise-checkbox-container">
-                                    <Checkbox label={t('Echo')} onChange={(e) => {
+            <div className="config-sub-area">
+                <div className="config-sub-area-control">
+                    <h3>{t('noise')}</h3>
+                    <div className="config-sub-area-control-field">
+                        <div className="config-sub-area-noise-container">
+                            <div className="config-sub-area-noise-checkbox-container">
+                                <Checkbox label={t('Echo')} onChange={(e) => {
+                                    try {
+                                        setVoiceChangerClientSetting({ ...setting.voiceChangerClientSetting, echoCancel: e.target.checked });
+                                    } catch (e) {
+                                        console.error(e);
+                                    }
+                                }} disabled={serverSetting.serverSetting.enableServerAudio != 0} checked={setting.voiceChangerClientSetting.echoCancel} />
+                            </div>
+                            <div className="config-sub-area-noise-checkbox-container">
+                                <Checkbox label={t('Sup1')} onChange={(e) => {
+                                    try {
+                                        setVoiceChangerClientSetting({ ...setting.voiceChangerClientSetting, noiseSuppression: e.target.checked });
+                                    } catch (e) {
+                                        console.error(e);
+                                    }
+                                }} disabled={serverSetting.serverSetting.enableServerAudio != 0} checked={setting.voiceChangerClientSetting.noiseSuppression} />
+                            </div>
+                            <div className="config-sub-area-noise-checkbox-container">
+                                <Checkbox disabled={serverSetting.serverSetting.enableServerAudio != 0}
+                                    checked={setting.voiceChangerClientSetting.noiseSuppression2}
+                                    onChange={(e) => {
                                         try {
-                                            setVoiceChangerClientSetting({ ...setting.voiceChangerClientSetting, echoCancel: e.target.checked });
+                                            setVoiceChangerClientSetting({ ...setting.voiceChangerClientSetting, noiseSuppression2: e.target.checked });
                                         } catch (e) {
                                             console.error(e);
                                         }
-                                    }} disabled={serverSetting.serverSetting.enableServerAudio != 0} checked={setting.voiceChangerClientSetting.echoCancel} />
-                                </div>
-                                <div className="config-sub-area-noise-checkbox-container">
-                                    <Checkbox label={t('Sup1')} onChange={(e) => {
-                                        try {
-                                            setVoiceChangerClientSetting({ ...setting.voiceChangerClientSetting, noiseSuppression: e.target.checked });
-                                        } catch (e) {
-                                            console.error(e);
-                                        }
-                                    }} disabled={serverSetting.serverSetting.enableServerAudio != 0} checked={setting.voiceChangerClientSetting.noiseSuppression} />
-                                </div>
-                                <div className="config-sub-area-noise-checkbox-container">
-                                    <Checkbox disabled={serverSetting.serverSetting.enableServerAudio != 0}
-                                        checked={setting.voiceChangerClientSetting.noiseSuppression2}
-                                        onChange={(e) => {
-                                            try {
-                                                setVoiceChangerClientSetting({ ...setting.voiceChangerClientSetting, noiseSuppression2: e.target.checked });
-                                            } catch (e) {
-                                                console.error(e);
-                                            }
-                                        }}
-                                        label={t('Sup2')} />
-                                </div>
+                                    }}
+                                    label={t('Sup2')} />
                             </div>
                         </div>
                     </div>
-                    {f0Det}
-                    {threshold}
                 </div>
-            </Card>
+                {f0Det}
+                {threshold}
+            </div>
         );
     }, [serverSetting.serverSetting, setting, serverSetting.updateServerSettings, setVoiceChangerClientSetting]);
 
