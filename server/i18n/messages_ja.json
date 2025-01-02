@@ -1,0 +1,21 @@
+{
+    "booting_phase": "起動フェーズ",
+    "server_starting": "サーバプロセスを起動しています。",
+    "activating_voice_changer": "Voice Changerを起動しています。",
+    "failed_to_download_weight": "RVC用のモデルファイルのダウンロードに失敗しました。",
+    "loading_sample_failed": "[Voice Changer] サンプルの読み込みに失敗しました",
+    "external_port": "外部ポート: {EX_PORT} 内部ポート: {PORT}",
+    "external_ip": "外部IP: {EX_IP}",
+    "protocol_https_self_signed": "プロトコル: HTTPS(自己署名), キー: {key_path}, 証明書: {cert_path}",
+    "protocol_https": "プロトコル: HTTPS, キー: {key_path}, 証明書: {cert_path}",
+    "protocol_http": "プロトコル: HTTP",
+    "open_url_in_browser": "ブラウザで次のURLを開いてください。",
+    "in_many_cases": "多くの場合は次のいずれかのURLにアクセスすると起動します。",
+    "https_ip": "https://{ip}:{EX_PORT}/",
+    "https_localhost": "https://localhost:{PORT}/",
+    "https_hostname": "https://{hostname}:{PORT}/",
+    "http_localhost": "http://localhost:{PORT}/",
+    "web_server_launch_exception": "[Voice Changer] Webサーバ起動エラー: {0}",
+    "web_server_https_launch_exception": "[Voice Changer] Webサーバ(https)起動エラー: {0}",
+    "client_launch_exception": "[Voice Changer] クライアント起動エラー: {0}"
+}

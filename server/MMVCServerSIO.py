@@ -27,6 +27,7 @@ import subprocess
 import multiprocessing as mp
 
 from mods.log_control import VoiceChangaerLogger
+import json
 
 
 if __name__ == "__main__":
@@ -71,7 +72,17 @@ def setupArgParser():
     return parser
 
 
-def printMessage(message, level=0):
+# Load i18n messages
+def load_i18n_messages(language="en"):
+    with open(f"i18n/messages_{language}.json", "r", encoding="utf-8") as f:
+        return json.load(f)
+
+# Set default language
+language = "ja"
+messages = load_i18n_messages(language)
+
+def printMessage(message_key, level=0):
+    message = messages.get(message_key, message_key)
     pf = platform.system()
     if pf == "Windows":
         if level == 0:
@@ -93,6 +104,9 @@ def printMessage(message, level=0):
             message = f"\033[47m    {message}\033[0m"
     logger.info(message)
 
+def logError(message_key, *args):
+    message = messages.get(message_key, message_key).format(*args)
+    logger.error(message)
 
 parser = setupArgParser()
 args, unknown = parser.parse_known_args()
@@ -115,7 +129,7 @@ voiceChangerParams = VoiceChangerParams(
 vcparams = VoiceChangerParamsManager.get_instance()
 vcparams.setParams(voiceChangerParams)
 
-printMessage(f"Booting PHASE :{__name__}", level=2)
+printMessage("booting_phase", level=2)
 
 HOST = args.host
 PORT = args.p
@@ -133,7 +147,7 @@ def localServer(logLevel: str = "critical", key_path: str | None = None, cert_pa
             log_level=logLevel,
         )
     except Exception as e:
-        logger.error(f"[Voice Changer] Web Server Launch Exception, {e}")
+        logError("web_server_launch_exception", e)
 
 
 if __name__ == "MMVCServerSIO":
@@ -145,8 +159,7 @@ if __name__ == "MMVCServerSIO":
 
 
 if __name__ == "__mp_main__":
-    # printMessage("サーバプロセスを起動しています。", level=2)
-    printMessage("The server process is starting up.", level=2)
+    printMessage("server_starting", level=2)
 
 if __name__ == "__main__":
     mp.freeze_support()
@@ -154,32 +167,28 @@ if __name__ == "__main__":
     logger.debug(args)
 
     printMessage(f"PYTHON:{sys.version}", level=2)
-    # printMessage("Voice Changerを起動しています。", level=2)
-    printMessage("Activating the Voice Changer.", level=2)
+    printMessage("activating_voice_changer", level=2)
     # ダウンロード(Weight)
     try:
         downloadWeight(voiceChangerParams)
     except WeightDownladException:
-        # printMessage("RVC用のモデルファイルのダウンロードに失敗しました。", level=2)
-        printMessage("failed to download weight for rvc", level=2)
+        printMessage("failed_to_download_weight", level=2)
 
     # ダウンロード(Sample)
     try:
         downloadInitialSamples(args.sample_mode, args.model_dir)
     except Exception as e:
-        printMessage(f"[Voice Changer] loading sample failed {e}", level=2)
-
-    # PORT = args.p
+        printMessage(f"loading_sample_failed {e}", level=2)
 
     if os.getenv("EX_PORT"):
         EX_PORT = os.environ["EX_PORT"]
-        printMessage(f"External_Port:{EX_PORT} Internal_Port:{PORT}", level=1)
+        printMessage(f"external_port {EX_PORT} internal_port {PORT}", level=1)
     else:
         printMessage(f"Internal_Port:{PORT}", level=1)
 
     if os.getenv("EX_IP"):
         EX_IP = os.environ["EX_IP"]
-        printMessage(f"External_IP:{EX_IP}", level=1)
+        printMessage(f"external_ip {EX_IP}", level=1)
 
     # HTTPS key/cert作成
     if args.https and args.httpsSelfSigned == 1:
@@ -202,44 +211,42 @@ if __name__ == "__main__":
         )
         key_path = os.path.join(SSL_KEY_DIR, keyname)
         cert_path = os.path.join(SSL_KEY_DIR, certname)
-        printMessage(f"protocol: HTTPS(self-signed), key:{key_path}, cert:{cert_path}", level=1)
+        printMessage(f"protocol_https_self_signed {key_path} {cert_path}", level=1)
 
     elif args.https and args.httpsSelfSigned == 0:
         # HTTPS
         key_path = args.httpsKey
         cert_path = args.httpsCert
-        printMessage(f"protocol: HTTPS, key:{key_path}, cert:{cert_path}", level=1)
+        printMessage(f"protocol_https {key_path} {cert_path}", level=1)
     else:
         # HTTP
-        printMessage("protocol: HTTP", level=1)
+        printMessage("protocol_http", level=1)
     printMessage("-- ---- -- ", level=1)
 
     # アドレス表示
-    printMessage("Please open the following URL in your browser.", level=2)
-    # printMessage("ブラウザで次のURLを開いてください.", level=2)
+    printMessage("open_url_in_browser", level=2)
     if args.https == 1:
         printMessage("https://<IP>:<PORT>/", level=1)
     else:
         printMessage("http://<IP>:<PORT>/", level=1)
 
-    # printMessage("多くの場合は次のいずれかのURLにアクセスすると起動します。", level=2)
-    printMessage("In many cases, it will launch when you access any of the following URLs.", level=2)
+    printMessage("in_many_cases", level=2)
     if "EX_PORT" in locals() and "EX_IP" in locals():  # シェルスクリプト経由起動(docker)
         if args.https == 1:
-            printMessage(f"https://localhost:{EX_PORT}/", level=1)
+            printMessage(f"https_localhost {EX_PORT}", level=1)
             for ip in EX_IP.strip().split(" "):
-                printMessage(f"https://{ip}:{EX_PORT}/", level=1)
+                printMessage(f"https_ip {ip} {EX_PORT}", level=1)
         else:
-            printMessage(f"http://localhost:{EX_PORT}/", level=1)
+            printMessage(f"http_localhost {EX_PORT}", level=1)
     else:  # 直接python起動
         if args.https == 1:
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             s.connect((args.test_connect, 80))
             hostname = s.getsockname()[0]
-            printMessage(f"https://localhost:{PORT}/", level=1)
-            printMessage(f"https://{hostname}:{PORT}/", level=1)
+            printMessage(f"https_localhost {PORT}", level=1)
+            printMessage(f"https_hostname {hostname} {PORT}", level=1)
         else:
-            printMessage(f"http://localhost:{PORT}/", level=1)
+            printMessage(f"http_localhost {PORT}", level=1)
 
     # サーバ起動
     if args.https:
@@ -247,7 +254,7 @@ if __name__ == "__main__":
         try:
             localServer(args.logLevel, key_path, cert_path)
         except Exception as e:
-            logger.error(f"[Voice Changer] Web Server(https) Launch Exception, {e}")
+            logError("web_server_https_launch_exception", e)
 
     else:
         p = mp.Process(name="p", target=localServer, args=(args.logLevel,))
@@ -265,4 +272,4 @@ if __name__ == "__main__":
                 p.terminate()
 
         except Exception as e:
-            logger.error(f"[Voice Changer] Client Launch Exception, {e}")
+            logError("client_launch_exception", e)

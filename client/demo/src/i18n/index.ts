@@ -31,6 +31,8 @@ i18n
                     "passthru": "passthru",
                     "in": "in",
                     "out": "out",
+                    "tune": "tune",
+                    "index": "index",
                 }                
             },
             ja: {
@@ -52,6 +54,8 @@ i18n
                     "passthru": "パススルー",
                     "in": "入力",
                     "out": "出力",
+                    "tune": "ピッチ",
+                    "index": "インデックス",
                 }                
             }
         }

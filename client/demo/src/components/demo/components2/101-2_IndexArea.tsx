@@ -1,5 +1,7 @@
 import React, { useMemo } from "react";
 import { useAppState } from "../../../001_provider/001_AppStateProvider";
+import { useTranslation } from "react-i18next";
+import { Card, Label, Slider } from "@fluentui/react-components";
 
 export type IndexAreaProps = {};
 
@@ -17,6 +19,8 @@ export const IndexArea = (_props: IndexAreaProps) => {
         }
     }, [serverSetting.serverSetting.modelSlotIndex, serverSetting.serverSetting.modelSlots]);
 
+    const { t } = useTranslation();
+
     const indexArea = useMemo(() => {
         if (!selected) {
             return <></>;
@@ -32,25 +36,22 @@ export const IndexArea = (_props: IndexAreaProps) => {
 
         return (
             <div className="character-area-control">
-                <div className="character-area-control-title">INDEX:</div>
-                <div className="character-area-control-field">
-                    <div className="character-area-slider-control">
-                        <span className="character-area-slider-control-kind"></span>
-                        <span className="character-area-slider-control-slider">
-                            <input
-                                type="range"
-                                min="0"
-                                max="1"
-                                step="0.1"
-                                value={currentIndexRatio}
-                                onChange={(e) => {
-                                    indexRatioValueUpdatedAction(Number(e.target.value));
-                                }}
-                            ></input>
-                        </span>
-                        <span className="character-area-slider-control-val">{currentIndexRatio}</span>
+                <Card>
+                    <h2>{t('index')}</h2>
+                    <div className="slider-with-label">
+                        <Slider
+                            min={0}
+                            max={1}
+                            step={0.1}
+                            defaultValue={1}
+                            value={currentIndexRatio}
+                            onChange={(_, data) => {
+                                indexRatioValueUpdatedAction(data.value);
+                            }}
+                        />
+                        <Label className="slider-label">{currentIndexRatio}</Label>
                     </div>
-                </div>
+                </Card>
             </div>
         );
     }, [serverSetting.serverSetting, serverSetting.updateServerSettings, selected]);

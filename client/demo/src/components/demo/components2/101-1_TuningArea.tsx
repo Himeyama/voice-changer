@@ -1,12 +1,15 @@
 import React, { useMemo } from "react";
 import { useAppState } from "../../../001_provider/001_AppStateProvider";
 import { useGuiState } from "../001_GuiStateProvider";
+import { useTranslation } from "react-i18next";
+import { Card, Label, Slider } from "@fluentui/react-components";
 
 export type TuningAreaProps = {};
 
 export const TuningArea = (_props: TuningAreaProps) => {
     const { serverSetting, webInfoState, webEdition } = useAppState();
     const { setBeatriceJVSSpeakerPitch, beatriceJVSSpeakerPitch } = useGuiState();
+    const { t } = useTranslation();
 
     const selected = useMemo(() => {
         if (webEdition) {
@@ -37,25 +40,21 @@ export const TuningArea = (_props: TuningAreaProps) => {
             };
             return (
                 <div className="character-area-control">
-                    <div className="character-area-control-title">TUNE:</div>
-                    <div className="character-area-control-field">
-                        <div className="character-area-slider-control">
-                            <span className="character-area-slider-control-kind"></span>
-                            <span className="character-area-slider-control-slider">
-                                <input
-                                    type="range"
-                                    min="-2"
-                                    max="2"
-                                    step="1"
-                                    value={beatriceJVSSpeakerPitch}
-                                    onChange={(e) => {
-                                        updateBeatriceJVSSpeakerPitch(Number(e.target.value));
-                                    }}
-                                ></input>
-                            </span>
-                            <span className="character-area-slider-control-val">{beatriceJVSSpeakerPitch}</span>
+                    <Card>
+                        <h2>{t('tune')}</h2>
+                        <div className="slider-with-label">
+                            <Slider
+                                min={-2}
+                                max={2}
+                                step={1}
+                                value={beatriceJVSSpeakerPitch}
+                                onChange={(_, data) => {
+                                    updateBeatriceJVSSpeakerPitch(data.value);
+                                }}
+                            />
+                            <Label className="slider-label">{beatriceJVSSpeakerPitch}</Label>
                         </div>
-                    </div>
+                    </Card>
                 </div>
             );
         }
@@ -76,25 +75,23 @@ export const TuningArea = (_props: TuningAreaProps) => {
 
         return (
             <div className="character-area-control">
-                <div className="character-area-control-title">TUNE:</div>
-                <div className="character-area-control-field">
-                    <div className="character-area-slider-control">
-                        <span className="character-area-slider-control-kind"></span>
-                        <span className="character-area-slider-control-slider">
-                            <input
-                                type="range"
-                                min="-50"
-                                max="50"
-                                step="1"
-                                value={currentTuning}
-                                onChange={(e) => {
-                                    tranValueUpdatedAction(Number(e.target.value));
-                                }}
-                            ></input>
-                        </span>
-                        <span className="character-area-slider-control-val">{currentTuning}</span>
+                <Card>
+                    <h2>{t('tune')}</h2>
+                    <div className="slider-with-label">
+                        <Slider
+                            min={-18}
+                            max={18}
+                            step={1}
+                            defaultValue={12}
+                            value={currentTuning}
+                            onChange={(_, data) => {
+                                tranValueUpdatedAction(data.value);
+                            }}
+                            style={{ width: "100%" }}
+                        />
+                        <Label className="slider-label">{currentTuning}</Label>
                     </div>
-                </div>
+                </Card>
             </div>
         );
     }, [serverSetting.serverSetting, serverSetting.updateServerSettings, selected, webEdition, webInfoState.upkey]);

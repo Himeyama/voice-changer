@@ -17,7 +17,6 @@ import { useTranslation } from "react-i18next"; // 追加
 // import { Slider, Button } from "@fluentui/react";
 import { Slider, Button, Label, Card  } from "@fluentui/react-components";
 
-
 export type CharacterAreaProps = {};
 
 export const CharacterArea = (_props: CharacterAreaProps) => {
@@ -202,7 +201,6 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
         return (
             <div className="character-area-control">
                 <Card>
-                    {/* <div className="character-area-control-title">{t('GAIN')}</div> */}
                     <h2>{t('GAIN')}</h2>
                     <div className="character-area-control-field">
                         <div className="character-area-slider-control">
@@ -212,7 +210,6 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
                                     <Slider style={{"display": "grid"}} width="100%" min={0.1} max={10.0} step={0.1} value={currentInputGain} onChange={(_, data) => {inputValueUpdatedAction(data.value);}} />
                                 </div>
                             </span>
-                            {/* <span className="character-area-slider-control-val">{currentInputGain}</span> */}
                         </div>
 
                         <div className="character-area-slider-control">
@@ -220,7 +217,6 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
                                 <Label>{t('out')}: {currentOutputGain}</Label>
                                 <Slider style={{"display": "grid"}} width="100%" min={0.1} max={10.0} step={0.1} value={currentOutputGain} onChange={(_, data) => {outputValueUpdatedAction(data.value); }} />
                             </span>
-                            {/* <span className="character-area-slider-control-val">{currentOutputGain}</span> */}
                         </div>
                     </div>
                 </Card>

@@ -6,7 +6,7 @@
     "prettier.printWidth": 1024,
     "prettier.tabWidth": 4,
     "files.associations": {
-        "*.css": "postcss"
+        "*.css": "css"
     },
     "liveServer.settings.root": "/dist",
     "[css]": {

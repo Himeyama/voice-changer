@@ -1559,6 +1559,15 @@ body {
             margin-top: 8px;
             align-items: center;
 
+            .slider-with-label {
+                display: grid;
+                grid-template-columns: 1fr auto;
+
+                .slider-label {
+                    margin: auto 0;
+                }
+            }
+
             .character-area-control-buttons {
 
 
