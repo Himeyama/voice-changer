@@ -519,6 +519,14 @@ url = "https://download.pytorch.org/whl/cu124"
 reference = "pytorch"
 
 [[package]]
+name = "pyinstaller"
+version = "6.11.1"
+description = "PyInstaller bundles a Python application and all its dependencies into a single package."
+optional = false
+python-versions = "*"
+files = []
+
+[[package]]
 name = "pyOpenSSL"
 version = "23.1.1"
 description = "Python wrapper module around the OpenSSL library"
@@ -776,4 +784,4 @@ files = []
 [metadata]
 lock-version = "2.0"
 python-versions = "3.10.11"
-content-hash = "445995e9fc20474f630995e446b69955dd32dcc6e912552831d619805687132d"
+content-hash = "b5cac05b1013f2c6a5787ab341040d545723262195c589267b6fa18cfca03cdd"

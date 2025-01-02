@@ -56,8 +56,8 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
             <div className="config-sub-area-control">
                 <h3>{t('audio')}</h3>
                 <RadioGroup className="select-audio-mode">
-                    <Radio id="client-device" checked={clientChecked} label={t('client')} onChange={() => {onDeviceModeChanged(0);}}></Radio>
-                    <Radio id="server-device" checked={clientChecked} label={t('server')} onChange={() => {onDeviceModeChanged(1);}}></Radio>
+                    <Radio id="client-device" checked={clientChecked} label={t('client')} onChange={(_ev, _data) => {onDeviceModeChanged(0);}}></Radio>
+                    <Radio id="server-device" checked={clientChecked} label={t('server')} onChange={(_ev, _data) => {onDeviceModeChanged(1);}}></Radio>
                 </RadioGroup>
                 <Button onClick={reloadDeviceInfo} style={{marginTop: "8px"}}>{t('reload')}</Button>
             </div>

@@ -56,11 +56,8 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
         start();
     }, [startWithAudioContextCreate]);
 
-    const [onStartDisabled, setOnStartDisabled] = useState(false);
-
     const startControl = useMemo(() => {
         const onStartClicked = async () => {
-            setOnStartDisabled(true);
             if (serverSetting.serverSetting.enableServerAudio == 0) {
                 if (!initializedRef.current) {
                     while (true) {
@@ -82,7 +79,6 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
             }
         };
         const onStopClicked = async () => {
-            setOnStartDisabled(false);
             if (serverSetting.serverSetting.enableServerAudio == 0) {
                 guiState.setIsConverting(false);
                 await stop();
@@ -151,7 +147,7 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
                 return (
                     <div className="character-area-control">
                         <div className="character-area-control-buttons">
-                            <Button onClick={onStartClicked} className={startClassName} disabled={onStartDisabled}>{t('start')}</Button>
+                            <Button onClick={onStartClicked} className={startClassName} disabled={guiState.isConverting}>{t('start')}</Button>
                             <Button onClick={onStopClicked} className={stopClassName}>{t('stop')}</Button>
                             <Button onClick={onPassThroughClicked} className={passThruClassName}>{t('passthru')}</Button>
                         </div>
