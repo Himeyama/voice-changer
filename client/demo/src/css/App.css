@@ -1358,7 +1358,7 @@ h3 {
         .character-area-control.save-settings-area {
             margin-top: 8px;
         }
-        
+
         .character-area-control {
             .character-area-control-buttons {
                 display: flex;
@@ -1515,16 +1515,32 @@ audio::-webkit-media-controls-overlay-enclosure{
     height: 1rem;
 } */
 
-.config-area {
+.config-area-parent {
+    margin-top: 8px;
+}
+
+.config-area.audio-serverio {
+    grid-template-columns: 1fr;
+}
+
+.config-area.more-action {
+    grid-template-columns: 1fr;
+}
+
+.config-sub-area-control-buttons {
+    column-gap: 8px;
     display: flex;
-    gap: 5px;
-    padding: 20px;
+}
+
+.config-area {
+    display: grid;
+    column-gap: 16px;
+    grid-template-columns: 1fr 1fr;
     .config-sub-area {
         display: flex;
         flex-direction: column;
         gap: 3px;
         .config-sub-area-control {
-            display: flex;
             .config-sub-area-control-title {
                 width: 5rem;
                 font-weight: 700;
@@ -1534,10 +1550,6 @@ audio::-webkit-media-controls-overlay-enclosure{
                 font-weight: 700;
             }
             .config-sub-area-control-field {
-                width: 15rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
                 .config-sub-area-noise-container {
                     display: flex;
                     gap: 10px;

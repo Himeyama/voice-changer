@@ -28,7 +28,7 @@ export const MoreActionArea = (_props: MoreActionAreaProps) => {
             <>
                 <div className="config-sub-area-control">
                     <h3>{t('more...')}</h3>
-                    <div style={{ display: "grid", gridTemplateColumns: "auto auto auto auto 1fr", columnGap: "8px" }}>
+                    <div className="config-sub-area-control-buttons">
                         <Button onClick={onOpenMergeLabClicked}>{t('merge-lab')}</Button>
                         <Button onClick={onOpenAdvancedSettingClicked}>{t('advanced-setting')}</Button>
                         <Button onClick={onOpenGetServerInformationClicked}>{t('server-info')}</Button>

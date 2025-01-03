@@ -21,11 +21,11 @@ export const ConfigArea = (props: ConfigAreaProps) => {
                         <QualityArea detectors={props.detectors}></QualityArea>
                         <ConvertArea inputChunkNums={props.inputChunkNums}></ConvertArea>
                     </div>
-                    <div className="config-area">
+                    <div className="config-area audio-serverio">
                         <DeviceArea></DeviceArea>
                         <RecorderArea></RecorderArea>
                     </div>
-                    <div className="config-area">
+                    <div className="config-area more-action">
                         <MoreActionArea></MoreActionArea>
                     </div>
                 </Card>
