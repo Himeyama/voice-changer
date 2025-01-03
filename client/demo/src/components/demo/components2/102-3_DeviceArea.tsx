@@ -10,7 +10,6 @@ import { Button, Label, Radio, RadioGroup, Select, Slider } from "@fluentui/reac
 export type DeviceAreaProps = {};
 
 export const DeviceArea = (_props: DeviceAreaProps) => {
-    const { t } = useTranslation();
     const { setting, serverSetting, audioContext, setAudioOutputElementId, setAudioMonitorElementId, initializedRef, setVoiceChangerClientSetting, startOutputRecording, stopOutputRecording, webEdition } = useAppState();
     const { isConverting, audioInputForGUI, inputAudioDeviceInfo, setAudioInputForGUI, fileInputEchoback, setFileInputEchoback, setAudioOutputForGUI, setAudioMonitorForGUI, audioOutputForGUI, audioMonitorForGUI, outputAudioDeviceInfo, shareScreenEnabled, setShareScreenEnabled, reloadDeviceInfo } = useGuiState();
     const [inputHostApi, setInputHostApi] = useState<string>("ALL");
@@ -18,6 +17,8 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
     const [monitorHostApi, setMonitorHostApi] = useState<string>("ALL");
     const audioSrcNode = useRef<MediaElementAudioSourceNode>();
     const displayMediaStream = useRef<MediaStream | null>(null);
+
+    const { t } = useTranslation();
 
     const { getItem, setItem } = useIndexedDB({ clientType: null });
     const [outputRecordingStarted, setOutputRecordingStarted] = useState<boolean>(false);
@@ -28,15 +29,14 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
             return (
                 <div className="config-sub-area-control">
                     <h3>{t('audio')}</h3>
-                    <Button onClick={reloadDeviceInfo}></Button>
-                    {/* <div className="config-sub-area-control-title">AUDIO:</div>
+                    {/* <div className="config-sub-area-control-title">AUDIO:</div> */}
                     <div className="config-sub-area-control-field">
                         <div className="config-sub-area-buttons">
                             <div onClick={reloadDeviceInfo} className="config-sub-area-button">
                                 reload
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             );
         }
@@ -55,11 +55,25 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
         return (
             <div className="config-sub-area-control">
                 <h3>{t('audio')}</h3>
-                <RadioGroup className="select-audio-mode">
-                    <Radio id="client-device" checked={clientChecked} label={t('client')} onChange={(_ev, _data) => {onDeviceModeChanged(0);}}></Radio>
-                    <Radio id="server-device" checked={clientChecked} label={t('server')} onChange={(_ev, _data) => {onDeviceModeChanged(1);}}></Radio>
-                </RadioGroup>
-                <Button onClick={reloadDeviceInfo} style={{marginTop: "8px"}}>{t('reload')}</Button>
+                {/* <div className="config-sub-area-control-title">AUDIO:</div> */}
+                <div className="config-sub-area-control-field">
+                    <div className="config-sub-area-noise-container">
+                        <div className="config-sub-area-noise-checkbox-container">
+                            <RadioGroup>
+                                <Radio label={t('client')} checked={clientChecked} onChange={() => onDeviceModeChanged(0)} />
+                            </RadioGroup>
+                        </div>
+                        <div className="config-sub-area-noise-checkbox-container">
+                            <RadioGroup>
+                                <Radio label={t('server')} checked={serverChecked} onChange={() => onDeviceModeChanged(1)} />
+                            </RadioGroup>
+                        </div>
+
+                        <div className="config-sub-area-buttons">
+                            <Button onClick={reloadDeviceInfo}>{t('reload')}</Button>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }, [serverSetting.serverSetting, serverSetting.updateServerSettings, isConverting]);
@@ -87,6 +101,7 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
+                {/* <div className="config-sub-area-control-title left-padding-1">input</div> */}
                 <h3>{t('in')}</h3>
                 <div className="config-sub-area-control-field">
                     <Select
@@ -159,6 +174,7 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
+                {/* <div className="config-sub-area-control-title left-padding-1">input</div> */}
                 <h3>{t('in')}</h3>
                 <div className="config-sub-area-control-field">
                     <div className="config-sub-area-control-field-auido-io">
@@ -556,9 +572,11 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
         return (
             <div className="config-sub-area-control">
                 <h3>{t('record')}</h3>
-                <div style={{ display: "grid", gridTemplateColumns: "auto auto 1fr", columnGap: "8px" }}>
-                    <Button onClick={onOutputRecordStartClicked}>{t("start-record")}</Button>
-                    <Button onClick={onOutputRecordStopClicked}>{t("stop-record")}</Button>
+                <div className="config-sub-area-control-field">
+                    <div className="config-sub-area-buttons">
+                        <Button onClick={onOutputRecordStartClicked} className={startClassName}>{t('start-record')}</Button>
+                        <Button onClick={onOutputRecordStopClicked} className={stopClassName}>{t('stop-record')}</Button>
+                    </div>
                 </div>
             </div>
         );
@@ -572,14 +590,14 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
 
         return (
             <div className="config-sub-area-control">
-                <div className="config-sub-area-control-title left-padding-1">S.R.</div>
+                <h3>{t('S.R.')}</h3>
                 <div className="config-sub-area-control-field">
                     <div className="config-sub-area-control-field-auido-io">
-                        <select
+                        <Select
                             className="config-sub-area-control-field-sample-rate-select"
                             value={serverSetting.serverSetting.serverAudioSampleRate}
-                            onChange={(e) => {
-                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverAudioSampleRate: Number(e.target.value) });
+                            onChange={(_, data) => {
+                                serverSetting.updateServerSettings({ ...serverSetting.serverSetting, serverAudioSampleRate: Number(data.value) });
                             }}
                         >
                             {[16000, 32000, 44100, 48000, 96000, 192000].map((x) => {
@@ -589,7 +607,7 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
                                     </option>
                                 );
                             })}
-                        </select>
+                        </Select>
                     </div>
                 </div>
             </div>
@@ -778,7 +796,7 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
                 <h3>{t('gain')}</h3>
                 <div className="slider-with-label">
                     <Slider
-                        min={0.5}
+                        min={1}
                         max={10}
                         step={0.5}
                         value={currentMonitorGain}
@@ -788,24 +806,6 @@ export const DeviceArea = (_props: DeviceAreaProps) => {
                     />
                     <Label className="slider-label">{currentMonitorGain}</Label>
                 </div>
-                {/* <div className="config-sub-area-control-title left-padding-2">gain</div> */}
-                {/* <div className="config-sub-area-control-field">
-                    <div className="config-sub-area-control-field-auido-io">
-                        <span className="character-area-slider-control-slider">
-                            <input
-                                type="range"
-                                min="0.1"
-                                max="10.0"
-                                step="0.1"
-                                value={currentMonitorGain}
-                                onChange={(e) => {
-                                    monitorValueUpdatedAction(Number(e.target.value));
-                                }}
-                            ></input>
-                        </span>
-                        <span className="character-area-slider-control-val">{currentMonitorGain}</span>
-                    </div>
-                </div> */}
             </div>
         );
     }, [serverSetting.serverSetting, setting, setVoiceChangerClientSetting, serverSetting.updateServerSettings]);

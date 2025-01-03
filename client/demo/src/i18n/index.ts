@@ -52,6 +52,7 @@ i18n
                     "advanced-setting": "Advanced Setting",
                     "server-info": "Server Info",
                     "client-info": "Client Info",
+                    "S.R.": "Sampling Rate",
                 }                
             },
             ja: {
@@ -94,6 +95,7 @@ i18n
                     "advanced-setting": "詳細設定",
                     "server-info": "サーバ情報",
                     "client-info": "クライアント情報",
+                    "S.R.": "サンプリング周波数",
                 }                
             }
         }

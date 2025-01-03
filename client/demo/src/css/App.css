@@ -1547,34 +1547,11 @@ audio::-webkit-media-controls-overlay-enclosure{
                     gap: 5px;
                     align-items: center;
                     .config-sub-area-button {
-                        border: solid 2px #999;
-                        color: white;
-                        background: #666;
-
-                        cursor: pointer;
-
-                        font-size: 0.8rem;
-                        border-radius: 5px;
-                        height: 1.2rem;
-                        padding-left: 2px;
-                        padding-right: 2px;
-                    }
-                    .config-sub-area-button:hover {
-                        border: solid 2px #faa;
                     }
                     .config-sub-area-button-active {
-                        border: solid 2px #999;
-                        color: white;
-                        background: #844;
-
-                        cursor: pointer;
-
-                        font-size: 0.8rem;
-                        border-radius: 5px;
-                        height: 1.2rem;
-                        padding-left: 2px;
-                        padding-right: 2px;
-                        white-space: nowrap;
+                        background: #FF99A4;
+                        border: solid 1px #442726;
+                        cursor: no-drop;
                     }
                     .config-sub-area-button-text-small {
                         font-size: 0.5rem;
