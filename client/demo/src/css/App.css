@@ -65,7 +65,7 @@ body {
 .main-body {
     height: 100%;
     width: 100%;
-    padding: 2rem;
+    padding: 16px;
     font-family: "Yusei Magic", sans-serif;
     display: flex;
     flex-direction: column;

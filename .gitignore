@@ -79,3 +79,4 @@ server/model_dir_static/Beatrice-JVS
 build/
 dist/*
 server/*
+install.exe
