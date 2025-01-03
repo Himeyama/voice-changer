@@ -1403,6 +1403,9 @@ h3 {
                     font-size: 0.9rem;
                 }
                 .character-area-slider-control {
+                    display: flex;
+                    flex-direction: column;
+
                     .character-area-slider-control-kind {
                         width: 2rem;
                     }
@@ -1417,6 +1420,7 @@ h3 {
                     }
                 }
                 .character-area-buttons {
+                    margin-top: 8px;
                     display: flex;
                     flex-direction: row;
                     gap: 5px;

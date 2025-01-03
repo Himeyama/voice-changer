@@ -14,7 +14,7 @@ import { Portrait } from "./101-0_Portrait";
 import { useAppRoot } from "../../../001_provider/001_AppRootProvider";
 import { WebEditionSettingArea } from "./101-8_web-editionSettingArea";
 import { useTranslation } from "react-i18next";
-import { Slider, Button, Label, Card  } from "@fluentui/react-components";
+import { Button, Card, Label, Slider } from "@fluentui/react-components";
 
 export type CharacterAreaProps = {};
 
@@ -26,6 +26,7 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
     const webEdition = appGuiSettingState.edition.indexOf("web") >= 0;
     const { beatriceJVSSpeakerId } = useGuiState();
     const { t } = useTranslation();
+
     useMemo(() => {
         messageBuilderState.setMessage(__filename, "export_to_onnx", { ja: "onnx出力", en: "export to onnx" });
         messageBuilderState.setMessage(__filename, "save_default", { ja: "設定保存", en: "save setting" });
@@ -54,6 +55,24 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
         guiState.setIsConverting(true);
         start();
     }, [startWithAudioContextCreate]);
+
+    const nameArea = useMemo(() => {
+        if (!selected) {
+            return <></>;
+        }
+        return (
+            <div className="character-area-control">
+                {/* <div className="character-area-control-title">Name:</div> */}
+                <div className="character-area-control-field">
+                    <div className="character-area-text">
+                        <h2>
+                            {selected.name} {selected.slotIndex == "Beatrice-JVS" ? `speaker:${beatriceJVSSpeakerId}` : ""}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        );
+    }, [selected, beatriceJVSSpeakerId]);
 
     const startControl = useMemo(() => {
         const onStartClicked = async () => {
@@ -134,10 +153,10 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
                     <div className="character-area-control">
                         <div className="character-area-control-buttons">
                             <div onClick={onStartClicked} className={startClassName}>
-                                {t('start')}
+                                start
                             </div>
                             <div onClick={onStopClicked} className={stopClassName}>
-                                {t('stop')}
+                                stop
                             </div>
                         </div>
                     </div>
@@ -146,9 +165,15 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
                 return (
                     <div className="character-area-control">
                         <div className="character-area-control-buttons">
-                            <Button onClick={onStartClicked} className={startClassName}>{t('start')}</Button>
-                            <Button onClick={onStopClicked} className={stopClassName}>{t('stop')}</Button>
-                            <Button onClick={onPassThroughClicked} className={passThruClassName}>{t('passthru')}</Button>
+                            <Button onClick={onStartClicked} className={startClassName}>
+                                {t('start')}
+                            </Button>
+                            <Button onClick={onStopClicked} className={stopClassName}>
+                                {t('stop')}
+                            </Button>
+                            <Button onClick={onPassThroughClicked} className={passThruClassName}>
+                                {t('passthru')}
+                            </Button>
                         </div>
                     </div>
                 );
@@ -179,22 +204,31 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
 
         return (
             <div className="character-area-control">
-                <h3>{t('GAIN')}</h3>
+                {/* <div className="character-area-control-title">GAIN:</div> */}
+                <h3>{t('gain')}</h3>
                 <div className="character-area-control-field">
                     <div className="character-area-slider-control">
-                        <span className="character-area-slider-control-slider">
-                            <div>
-                                <Label>{t('in')}: {currentInputGain}</Label>
-                                <Slider style={{"display": "grid"}} width="100%" defaultValue={1} min={0.5} max={10.0} step={0.5} value={currentInputGain} onChange={(_, data) => {inputValueUpdatedAction(data.value);}} />
-                            </div>
-                        </span>
+                        <Label>{t('in')}: {currentInputGain}</Label>
+                        <Slider
+                            min={1}
+                            max={10}
+                            step={1}
+                            value={currentInputGain}
+                            onChange={(_, data) => {
+                                inputValueUpdatedAction(Number(data.value));
+                            }} />
                     </div>
 
                     <div className="character-area-slider-control">
-                        <span className="character-area-slider-control-slider">
-                            <Label>{t('out')}: {currentOutputGain}</Label>
-                            <Slider style={{"display": "grid"}} width="100%" defaultValue={10} min={0.5} max={10.0} step={0.5} value={currentOutputGain} onChange={(_, data) => {outputValueUpdatedAction(data.value); }} />
-                        </span>
+                        <Label>{t('out')}: {currentOutputGain}</Label>
+                            <Slider
+                                min={1}
+                                max={10}
+                                step={1}
+                                value={currentOutputGain}
+                                onChange={(_, data) => {
+                                    outputValueUpdatedAction(Number(data.value));
+                                }} />
                     </div>
                 </div>
             </div>
@@ -232,30 +266,39 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
 
         const exportOnnx =
             selected.voiceChangerType == "RVC" && selected.modelFile.endsWith("pth") ? (
-                <div className="character-area-button" onClick={onnxExportButtonAction}>
-                    {messageBuilderState.getMessage(__filename, "export_to_onnx")}
-                </div>
+                // <div className="character-area-button" onClick={onnxExportButtonAction}>
+                //     {messageBuilderState.getMessage(__filename, "export_to_onnx")}
+                // </div>
+                <Button onClick={onnxExportButtonAction}>{messageBuilderState.getMessage(__filename, "export_to_onnx")}</Button>
             ) : (
                 <></>
             );
         return (
-            <div className="character-area-control save-settings-area">
-                <Button onClick={onUpdateDefaultClicked}>{t('save-settings')}</Button>
+            <div className="character-area-control">
+                <div className="character-area-control-title"></div>
+                <div className="character-area-control-field">
+                    <div className="character-area-buttons">
+                        {/* <div className="character-area-button" onClick={onUpdateDefaultClicked}>
+                            {messageBuilderState.getMessage(__filename, "save_default")}
+                        </div> */}
+                        <Button onClick={onUpdateDefaultClicked}>{t('save-settings')}</Button>
+                        {exportOnnx}
+                    </div>
+                </div>
             </div>
         );
     }, [selected, serverSetting.getOnnx, serverSetting.updateModelDefault, guiState.isConverting]);
 
-    const nameArea = useMemo(() => {
-        if (!selected) {
-            return <></>;
-        }
+    const characterArea = useMemo(() => {
         return (
-            <div className="character-area-control">
+            <div className="character-area">
                 <Card>
-                    <h2>{selected.name} {selected.slotIndex == "Beatrice-JVS" ? `speaker:${beatriceJVSSpeakerId}` : ""}</h2>
                     <div className="portrait-control-area">
-                        <Portrait />
-                        <div className="character-control-area">
+                        <div>
+                            {nameArea}
+                            <Portrait></Portrait>
+                        </div>
+                        <div className="character-area-control-area">
                             {startControl}
                             {gainControl}
                             <TuningArea />
@@ -270,33 +313,6 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
                         </div>
                     </div>
                 </Card>
-                {/* <div className="character-area-control-title">Name:</div>
-                <div className="character-area-control-field">
-                    <div className="character-area-text">
-                        {selected.name} {selected.slotIndex == "Beatrice-JVS" ? `speaker:${beatriceJVSSpeakerId}` : ""}
-                    </div>
-                </div> */}
-            </div>
-        );
-    }, [selected, beatriceJVSSpeakerId]);
-
-    const characterArea = useMemo(() => {
-        return (
-            <div className="character-area">
-                {/* <Portrait></Portrait> */}
-                <div className="character-area-control-area">
-                    {nameArea}
-                    {/* {startControl} */}
-                    {/* <TuningArea />
-                    <IndexArea />
-                    <SpeakerArea />
-                    <F0FactorArea />
-                    <SoVitsSVC40SettingArea />
-                    <DDSPSVC30SettingArea />
-                    <DiffusionSVCSettingArea />
-                    <WebEditionSettingArea />
-                    {modelSlotControl} */}
-                </div>
             </div>
         );
     }, [startControl, gainControl, modelSlotControl]);
