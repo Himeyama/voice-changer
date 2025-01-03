@@ -21,8 +21,6 @@ function main(){
     if ($LASTEXITCODE -ne 0) {
         [System.Windows.Forms.MessageBox]::Show("poetry install に失敗しました", "エラー", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
         return
-    }else{
-        [System.Windows.Forms.MessageBox]::Show("インストールが完了しました", "情報", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
     }
 
     poetry run python MMVCServerSIO.py
