@@ -13,8 +13,7 @@ import { DiffusionSVCSettingArea } from "./101-7_diffusion-svcSettingArea";
 import { Portrait } from "./101-0_Portrait";
 import { useAppRoot } from "../../../001_provider/001_AppRootProvider";
 import { WebEditionSettingArea } from "./101-8_web-editionSettingArea";
-import { useTranslation } from "react-i18next"; // 追加
-// import { Slider, Button } from "@fluentui/react";
+import { useTranslation } from "react-i18next";
 import { Slider, Button, Label, Card  } from "@fluentui/react-components";
 
 export type CharacterAreaProps = {};

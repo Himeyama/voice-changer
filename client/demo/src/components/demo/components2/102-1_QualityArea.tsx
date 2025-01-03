@@ -4,7 +4,7 @@ import { F0Detector } from "@dannadori/voice-changer-client-js";
 import { useAppRoot } from "../../../001_provider/001_AppRootProvider";
 import { useTranslation } from "react-i18next";
 // import { Checkbox } from "@fluentui/react";
-import { Card, Checkbox, Select, Slider } from "@fluentui/react-components";
+import { Card, Checkbox, Label, Select, Slider } from "@fluentui/react-components";
 
 export type QualityAreaProps = {
     detectors: string[];
@@ -73,18 +73,34 @@ export const QualityArea = (props: QualityAreaProps) => {
         const threshold = webEdition ? (
             <></>
         ) : (
+            // <div>
+            //     <h3>{t('S.Thresh.')}</h3>
+            //     <Slider
+            //         min={0.00000}
+            //         max={0.001}
+            //         step={0.0001}
+            //         style={{ width: "100%" }}
+            //         value={serverSetting.serverSetting.silentThreshold || 0.0}
+            //         onChange={(_, data) => {
+            //             serverSetting.updateServerSettings({ ...serverSetting.serverSetting, silentThreshold: data.value });
+            //         }}
+            //     />
+            // </div>
             <div>
                 <h3>{t('S.Thresh.')}</h3>
-                <Slider
-                    min={0.00000}
-                    max={0.001}
-                    step={0.00001}
-                    style={{ width: "100%" }}
-                    value={serverSetting.serverSetting.silentThreshold || 0.0}
-                    onChange={(_, data) => {
-                        serverSetting.updateServerSettings({ ...serverSetting.serverSetting, silentThreshold: data.value });
-                    }}
-                />
+                <div className="slider-with-label" style={{gridTemplateColumns: "1fr 64px"}}>
+                    <Slider
+                        min={0.00000}
+                        max={0.001}
+                        step={0.00005}
+                        defaultValue={1}
+                        value={serverSetting.serverSetting.silentThreshold || 0.0}
+                        onChange={(_, data) => {
+                            serverSetting.updateServerSettings({ ...serverSetting.serverSetting, silentThreshold: data.value });
+                        }}
+                    />
+                    <Label className="slider-label">{serverSetting.serverSetting.silentThreshold || 0.0}</Label>
+                </div>
             </div>
         );
 
