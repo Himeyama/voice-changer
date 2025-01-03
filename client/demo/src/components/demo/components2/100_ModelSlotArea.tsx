@@ -94,7 +94,7 @@ export const ModelSlotArea = (_props: ModelSlotAreaProps) => {
         const sortSlotByNameClass = sortType == "name" ? "model-slot-sort-button-active" : "model-slot-sort-button";
         return (
             <div className="model-slot-area">
-                <Card>
+                <Card className="model-slot-card">
                     <h2>{t('select-model')}</h2>
                     <div className="model-slot-panel">
                         <div className="model-slot-tiles-container">{modelTiles}</div>

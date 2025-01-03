@@ -124,6 +124,7 @@ body {
         .partition-content {
             position: static;
             overflow-y: hidden;
+            padding: 8px;
         }
         .row-split {
         }
@@ -1149,22 +1150,25 @@ body {
         }
     }
 }
+
+h2 {
+    font-family: "Yu Gothic UI";
+}
+
 .model-slot-area {
-    display: inline-block;
-    background: var(--company-color2);
-    border-radius: 10px;
-    padding: 20px;
+    margin-top: 8px;
+    
+    .model-slot-card {
+        padding: 16px;
+    }
+
     .model-slot-panel {
-        display: flex;
-        flex-direction: row;
-        gap: 5px;
+        margin-top: 8px;
         .model-slot-tiles-container {
             display: flex;
             flex-direction: row;
-            gap: 2px;
+            gap: 8px;
             flex-wrap: wrap;
-            overflow-y: scroll;
-            max-height: 12rem;
             &::-webkit-scrollbar {
                 width: 10px;
                 height: 10px;
@@ -1183,10 +1187,9 @@ body {
 
         .model-slot-buttons {
             display: flex;
-            gap: 5px;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 4rem;
+            gap: 8px;
+            flex-direction: row;
+            margin-top: 8px;
             .model-slot-button {
                 border: solid 2px #999;
                 color: white;
