@@ -1365,24 +1365,12 @@ h3 {
                 flex-direction: row;
                 gap: 10px;
                 .character-area-control-button-active {
-                    width: 5rem;
-                    border: solid 1px #333;
-                    border-radius: 2px;
-                    background: #ada;
-                    font-weight: 700;
-                    text-align: center;
+                    background: #F0F0F0;
+                    border: solid 1px #E0E0E0;
+                    color: #BDBDBD;
+                    cursor: no-drop;
                 }
                 .character-area-control-button-stanby {
-                    width: 5rem;
-                    border: solid 1px #999;
-                    border-radius: 2px;
-                    background: #aba;
-                    cursor: pointer;
-                    font-weight: 700;
-                    text-align: center;
-                    &:hover {
-                        border: solid 1px #000;
-                    }
                 }
                 .character-area-control-button-disable {
                     width: 5rem;
@@ -1394,32 +1382,11 @@ h3 {
                     color: grey;
                 }
                 .character-area-control-passthru-button-stanby {
-                    width: 5rem;
-                    border: solid 1px #999;
-                    border-radius: 15px;
-                    padding: 2px;
                     background: #aba;
                     cursor: pointer;
-                    font-weight: 700;
-                    font-size: 0.8rem;
-                    text-align: center;
-                    &:hover {
-                        border: solid 1px #000;
-                    }
                 }
                 .character-area-control-passthru-button-active {
-                    width: 5rem;
-                    border: solid 1px #955;
-                    border-radius: 15px;
-                    padding: 2px;
                     background: #fdd;
-                    cursor: pointer;
-                    font-weight: 700;
-                    font-size: 0.8rem;
-                    text-align: center;
-                    &:hover {
-                        border: solid 1px #000;
-                    }
                 }
             }
 

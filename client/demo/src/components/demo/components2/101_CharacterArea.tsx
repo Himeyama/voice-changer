@@ -146,7 +146,7 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
                 return (
                     <div className="character-area-control">
                         <div className="character-area-control-buttons">
-                            <Button onClick={onStartClicked} className={startClassName} disabled={guiState.isConverting}>{t('start')}</Button>
+                            <Button onClick={onStartClicked} className={startClassName}>{t('start')}</Button>
                             <Button onClick={onStopClicked} className={stopClassName}>{t('stop')}</Button>
                             <Button onClick={onPassThroughClicked} className={passThruClassName}>{t('passthru')}</Button>
                         </div>
