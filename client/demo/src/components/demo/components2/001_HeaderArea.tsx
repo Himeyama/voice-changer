@@ -35,7 +35,7 @@ export const HeaderArea = (props: HeaderAreaProps) => {
             //     className="link tooltip"
             //     onClick={() => {
             //         // @ts-ignore
-            //         window.electronAPI.openBrowser("https://github.com/w-okada/voice-changer");
+            //         window.electronAPI.openBrowser("https://github.com/himeyama/voice-changer");
             //     }}
             // >
             //     <img src="./assets/icons/github.svg" />
@@ -43,7 +43,7 @@ export const HeaderArea = (props: HeaderAreaProps) => {
             // </span>
             <div></div>
         ) : (
-            // <a className="link tooltip" href="https://github.com/w-okada/voice-changer" target="_blank" rel="noopener noreferrer">
+            // <a className="link tooltip" href="https://github.com/himeyama/voice-changer" target="_blank" rel="noopener noreferrer">
             //     <img src="./assets/icons/github.svg" />
             //     <div className="tooltip-text">{messageBuilderState.getMessage(__filename, "github")}</div>
             // </a>
@@ -57,14 +57,14 @@ export const HeaderArea = (props: HeaderAreaProps) => {
                 className="link tooltip"
                 onClick={() => {
                     // @ts-ignore
-                    window.electronAPI.openBrowser("https://github.com/w-okada/voice-changer/blob/master/tutorials/tutorial_rvc_ja_latest.md");
+                    window.electronAPI.openBrowser("https://github.com/himeyama/voice-changer/blob/master/tutorials/tutorial_rvc_ja_latest.md");
                 }}
             >
                 <img src="./assets/icons/help-circle.svg" />
                 <div className="tooltip-text tooltip-text-100px">{messageBuilderState.getMessage(__filename, "manual")}</div>
             </span>
         ) : (
-            <a className="link tooltip" href="https://github.com/w-okada/voice-changer/blob/master/tutorials/tutorial_rvc_ja_latest.md" target="_blank" rel="noopener noreferrer">
+            <a className="link tooltip" href="https://github.com/himeyama/voice-changer/blob/master/tutorials/tutorial_rvc_ja_latest.md" target="_blank" rel="noopener noreferrer">
                 <img src="./assets/icons/help-circle.svg" />
                 <div className="tooltip-text tooltip-text-100px">{messageBuilderState.getMessage(__filename, "manual")}</div>
             </a>
@@ -79,7 +79,7 @@ export const HeaderArea = (props: HeaderAreaProps) => {
                     <p
                         onClick={() => {
                             // @ts-ignore
-                            window.electronAPI.openBrowser("https://w-okada.github.io/screen-recorder-ts/");
+                            window.electronAPI.openBrowser("https://himeyama.github.io/screen-recorder-ts/");
                         }}
                     >
                         {messageBuilderState.getMessage(__filename, "screenCapture")}
@@ -92,7 +92,7 @@ export const HeaderArea = (props: HeaderAreaProps) => {
                 <div className="tooltip-text tooltip-text-100px">
                     <p
                         onClick={() => {
-                            window.open("https://w-okada.github.io/screen-recorder-ts/", "_blank", "noreferrer");
+                            window.open("https://himeyama.github.io/screen-recorder-ts/", "_blank", "noreferrer");
                         }}
                     >
                         {messageBuilderState.getMessage(__filename, "screenCapture")}

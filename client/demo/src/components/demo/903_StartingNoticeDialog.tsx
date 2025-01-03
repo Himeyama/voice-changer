@@ -59,13 +59,13 @@ export const StartingNoticeDialog = () => {
                 className="link"
                 onClick={() => {
                     // @ts-ignore
-                    window.electronAPI.openBrowser("https://github.com/w-okada/voice-changer/blob/master/LICENSE-NOTICE");
+                    window.electronAPI.openBrowser("https://github.com/himeyama/voice-changer/blob/master/LICENSE-NOTICE");
                 }}
             >
                 License Notice
             </span>
         ) : (
-            <a className="link" href="https://github.com/w-okada/voice-changer/blob/master/LICENSE-NOTICE" target="_blank" rel="noopener noreferrer">
+            <a className="link" href="https://github.com/himeyama/voice-changer/blob/master/LICENSE-NOTICE" target="_blank" rel="noopener noreferrer">
                 License Notice
             </a>
         );
@@ -91,8 +91,8 @@ export const StartingNoticeDialog = () => {
 
         const donationMessage = (
             <div className="dialog-content-part">
-                <div>{messageBuilderState.getMessage(__filename, "support_message_1")}</div>
-                <div>{coffeeLink}</div>
+                {/* <div>{messageBuilderState.getMessage(__filename, "support_message_1")}</div>
+                <div>{coffeeLink}</div> */}
             </div>
         );
 
@@ -118,7 +118,7 @@ export const StartingNoticeDialog = () => {
                 className="link tooltip"
                 onClick={() => {
                     // @ts-ignore
-                    window.electronAPI.openBrowser("https://github.com/w-okada/voice-changer");
+                    window.electronAPI.openBrowser("https://github.com/himeyama/voice-changer");
                 }}
             >
                 <img src="./assets/icons/github.svg" />
@@ -126,7 +126,7 @@ export const StartingNoticeDialog = () => {
                 <div>github</div>
             </span>
         ) : (
-            <a className="link tooltip" href="https://github.com/w-okada/voice-changer" target="_blank" rel="noopener noreferrer">
+            <a className="link tooltip" href="https://github.com/himeyama/voice-changer" target="_blank" rel="noopener noreferrer">
                 <img src="./assets/icons/github.svg" />
                 <span>github</span>
                 <div className="tooltip-text">{messageBuilderState.getMessage(__filename, "github")}</div>

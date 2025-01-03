@@ -105,7 +105,7 @@ export const ConvertArea = (props: ConvertProps) => {
                                 </div>
                                 <div className="config-sub-area-control">
                                     <span className="config-sub-area-button-text-small">
-                                        <a href="https://github.com/w-okada/voice-changer/issues/410">{t('more info')}</a>
+                                        <a href="https://github.com/himeyama/voice-changer/issues/410">{t('more info')}</a>
                                     </span>
                                 </div>
                             </div>
