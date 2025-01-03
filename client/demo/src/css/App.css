@@ -1153,11 +1153,17 @@ body {
 
 h2 {
     font-family: "Yu Gothic UI";
+    margin: 16px 0 16px 0;
+}
+
+h3 {
+    font-family: "Yu Gothic UI";
+    margin: 16px 0 8px 0;
 }
 
 .model-slot-area {
     margin-top: 8px;
-    
+
     .model-slot-card {
         padding: 16px;
     }
@@ -1287,10 +1293,23 @@ h2 {
     padding-top: 4px;
 }
 
+.slider-with-label {
+    display: grid;
+    grid-template-columns: 1fr 24px;
+    .slider-label {
+        margin: auto 0;
+        text-align: center;
+    }
+}
+
 .character-area {
-    display: flex;
-    gap: 5px;
-    padding: 20px;
+    margin-top: 8px;
+    .portrait-control-area {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        column-gap: 16px;
+    }
+
     .portrait-area {
         width: 20rem;
         height: 20rem;
@@ -1336,13 +1355,11 @@ h2 {
         }
     }
     .character-area-control-area {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        .character-area-control.save-settings-area {
+            margin-top: 8px;
+        }
+        
         .character-area-control {
-            display: flex;
-            gap: 3px;
-            align-items: center;
             .character-area-control-buttons {
                 display: flex;
                 flex-direction: row;
@@ -1411,16 +1428,14 @@ h2 {
                 font-weight: 700;
             }
             .character-area-control-field {
-                /* width: 20rem; */
-                display: flex;
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 16px;
 
                 .character-area-text {
                     font-size: 0.9rem;
                 }
                 .character-area-slider-control {
-                    display: flex;
-                    flex-direction: row;
                     .character-area-slider-control-kind {
                         width: 2rem;
                     }

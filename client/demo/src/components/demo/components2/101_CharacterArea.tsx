@@ -240,17 +240,7 @@ export const CharacterArea = (_props: CharacterAreaProps) => {
                 <></>
             );
         return (
-            <div className="character-area-control">
-                {/* <div className="character-area-control-title"></div>
-                <div className="character-area-control-field">
-                    <div className="character-area-buttons">
-                        <div className="character-area-button" onClick={onUpdateDefaultClicked}>
-                            /* {messageBuilderState.getMessage(__filename, "save_default")}
-                            {t('save-settings')}
-                        </div>
-                        {exportOnnx}
-                    </div>
-                </div> */}
+            <div className="character-area-control save-settings-area">
                 <Button onClick={onUpdateDefaultClicked}>{t('save-settings')}</Button>
             </div>
         );
