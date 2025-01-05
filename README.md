@@ -16,20 +16,29 @@ Windows 版をインストールしてください。
 https://developer.nvidia.com/cuda-12-4-0-download-archive
 
 ### Python (Pyenv) 3.10
-以下を参照し、インストールしてください。
+以下のコマンドを端末 (Powershell) で実行し、Pyenv をインストールしてください。
 
-https://github.com/pyenv-win/pyenv-win?tab=readme-ov-file#quick-start
+```ps1
+Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
+```
+
+Pyenv のインストール後、端末を再起動してください。
+
+以下のコマンドを実行し、Pyenv で Python 3.10 をインストールし、既定の Python として 3.10 を設定してください。
 
 ```ps1
 pyenv install 3.10
 pyenv global 3.10
 ```
 
+参考: https://github.com/pyenv-win/pyenv-win?tab=readme-ov-file#quick-start
+
 ### Poetry
+以下のコマンドを実行し、poetry をインストールしてください。
+
 ```ps1
 pip install poetry
 ```
-
 
 ## 利用規約
 リアルタイムボイスチェンジャーの利用に関しては、各モデルおよび各キャラクターの規約に従ってください。

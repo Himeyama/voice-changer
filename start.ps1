@@ -7,7 +7,7 @@ function main(){
         return
     }
     $pythonVersion = python -V
-    if ($pythonVersion -notmatch "Python 3\.10") {
+    if (-Not ($pythonVersion -match "Python 3\.10")) {
         Write-Host "Python 3.10 系がインストールされていません (中止)" -ForegroundColor Red
         [System.Windows.Forms.MessageBox]::Show("Python 3.10 系がインストールされていません (中止)", "エラー", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
         return
